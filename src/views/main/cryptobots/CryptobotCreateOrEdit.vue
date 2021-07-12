@@ -158,16 +158,19 @@ export default class CryptobotCreateOrEdit extends Vue {
   public cryptobotId: string | null = null;
   public userId: string = '';
 
+  public customer: string = this.userId.toString();
   public binanceApiUrl: string = 'https://api.binance.com';
   public binanceApiKey: string = '';
   public binanceApiSecret: string = '';
-  public binanceConfigBaseCurrency: string = 'BTC';
-  public binanceConfigQuoteCurrency: string = 'EUR';
+  public binanceConfigBaseCurrency: string = 'btc';
+  public binanceConfigQuoteCurrency: string = 'eur';
   public binanceConfigGranularity: string = '15m';
   public binanceConfigLive: boolean = false;
   public binanceConfigVerbose: boolean = true;
   public binanceConfigGraphs: boolean = false;
   public binanceConfigBuymaxsize: number = 1;
+  public binanceConfigSellupperpcnt: number = 5;
+  public binanceConfigSelllowerpcnt: number = -5;
   public loggerFilelog: boolean = false;
   public loggerLogfile: string = 'pycryptobot.log';
   public loggerFileloglevel: string = 'DEBUG';
@@ -182,6 +185,7 @@ export default class CryptobotCreateOrEdit extends Vue {
     const userProfile = readUserProfile(this.$store);
     if (userProfile) {
       this.userId = userProfile.id;
+      console.log(userProfile.id, this.userId, this.userId.toString());
     }
     this.editMode = this.$router.currentRoute.name === 'main-cryptobots-edit' ? true : false;
     if (this.editMode) {
@@ -208,6 +212,7 @@ export default class CryptobotCreateOrEdit extends Vue {
     if ((this.$refs.form as any).validate()) {
       const updatedCryptobot: ICryptobotCreate = {
         user_id: this.userId,
+        customer: this.userId,
         binance_api_url: this.binanceApiUrl,
         binance_api_key: this.binanceApiKey,
         binance_api_secret: this.binanceApiSecret,
@@ -218,6 +223,8 @@ export default class CryptobotCreateOrEdit extends Vue {
         binance_config_verbose : this.binanceConfigVerbose,
         binance_config_graphs: this.binanceConfigGraphs,
         binance_config_buymaxsize: this.binanceConfigBuymaxsize,
+        binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
+        binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
         logger_filelog: this.loggerFilelog,
         logger_logfile: this.loggerLogfile,
         logger_fileloglevel: this.loggerFileloglevel,

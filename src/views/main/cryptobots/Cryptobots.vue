@@ -3,8 +3,8 @@
     <v-data-table
       :headers="headers"
       :items="cryptobots"
-      :sort-by.sync="pagination.sortBy"
-      :sort-desc.sync="pagination.sortDesc"
+      :options.sync="pagination"
+      :footer-props.sync="paginationFooter"
       class="elevation-1"
     >
       <template v-slot:top>
@@ -24,6 +24,18 @@
         </v-toolbar>
       </template>
 
+      <template v-slot:[`item.binance_config_live`]="{ item }">
+        <v-icon
+            :color="getLivePropColor(item.binance_config_live)"
+          >
+            mdi-checkbox-blank-circle
+        </v-icon>
+      </template>
+
+      <template v-slot:[`item.created_on`]="{ item }">
+        {{ getDatetimePretty(item.created_on) }}
+      </template>
+      
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn slot="activator" text :to="{name: 'main-cryptobots-view', params: {id: item.id}}">
           <v-icon>mdi-eye</v-icon>
@@ -38,11 +50,11 @@
     </v-data-table>
     <v-dialog v-model="deleteCryptobotDialog" max-width="500px">
       <v-card>
-        <v-card-title>Supprimer</v-card-title>
-        <v-card-text>Confirmer la suppression</v-card-text>
+        <v-card-title>Delete</v-card-title>
+        <v-card-text>Confirm deletion</v-card-text>
         <v-card-actions>
-          <v-btn color="primary" text @click="deleteCryptobotDialog = false">Fermer</v-btn>
-          <v-btn color="primary" text @click="deleteCryptobot()">Supprimer</v-btn>
+          <v-btn color="primary" text @click="deleteCryptobotDialog = false">Close</v-btn>
+          <v-btn color="primary" text @click="deleteCryptobot()">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -54,12 +66,18 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Store } from 'vuex';
 import { readUserProfile, readCryptobots } from '@/store/main/getters';
 import { dispatchGetCryptobots, dispatchRemoveCryptobot } from '@/store/main/actions';
+import moment from 'moment';
 
 @Component
 export default class Cryptobots extends Vue {
 
-  public test = {enabled: true};
-  public pagination = {sortBy: 'ID', sortDesc: true};
+  public pagination = {
+    sortBy: ['id'],
+    sortDesc: true,
+  };
+  public paginationFooter = {
+    itemsPerPageOptions: [10, 25, 50, { text: 'Tous', value: -1 }],
+  };
   public headers = [
     {
       text: 'Live',
@@ -79,6 +97,18 @@ export default class Cryptobots extends Vue {
       value: 'binance_config_quote_currency',
       align: 'left',
     },
+    {
+      text: 'Creation date',
+      sortable: true,
+      value: 'created_on',
+      align: 'left',
+    },
+    {
+      text: 'Actions',
+      value: 'actions',
+      align: 'center',
+      sortable: false,
+    },
   ];
 
   public deletecryptobotId;
@@ -93,8 +123,8 @@ export default class Cryptobots extends Vue {
     await dispatchGetCryptobots(this.$store);
   }
 
-  public showDeleteDialog(item) {
-      this.deletecryptobotId = item;
+  public showDeleteDialog(cryptbotId) {
+      this.deletecryptobotId = cryptbotId;
       this.deleteCryptobotDialog = !this.deleteCryptobotDialog;
   }
 
@@ -103,6 +133,18 @@ export default class Cryptobots extends Vue {
       await dispatchGetCryptobots(this.$store);
       this.deleteCryptobotDialog = !this.deleteCryptobotDialog;
       delete this.deletecryptobotId;
+  }
+
+  public getLivePropColor(liveProp) {
+    if (liveProp) {
+      return 'green';
+    } else {
+      return 'red';
+    }
+  }
+
+  public getDatetimePretty(datetime) {
+    return moment(datetime).format('YYYY-MM-DD HH:mm:ss');
   }
 
 }

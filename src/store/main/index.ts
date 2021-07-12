@@ -7,6 +7,7 @@ import { ICryptobot } from '@/interfaces';
 
 const defaultCryptobot: ICryptobot = {
   user_id: '',
+  customer: '',
   binance_api_url: '',
   binance_api_key: '',
   binance_api_secret: '',
@@ -17,6 +18,8 @@ const defaultCryptobot: ICryptobot = {
   binance_config_verbose : true,
   binance_config_graphs: false,
   binance_config_buymaxsize: 1,
+  binance_config_sellupperpcnt: 5,
+  binance_config_selllowerpcnt: -5,
   logger_filelog: false,
   logger_logfile: '',
   logger_fileloglevel: '',

@@ -50,16 +50,19 @@ export default class CryptobotCreateOrEdit extends Vue {
   public cryptobotId: string | null = null;
   public userId: string = '';
 
+  public customer: string = '';
   public binanceApiUrl: string = 'https://api.binance.com';
   public binanceApiKey: string = '';
   public binanceApiSecret: string = '';
-  public binanceConfigBaseCurrency: string = 'BTC';
-  public binanceConfigQuoteCurrency: string = 'EUR';
+  public binanceConfigBaseCurrency: string = 'btc';
+  public binanceConfigQuoteCurrency: string = 'eur';
   public binanceConfigGranularity: string = '15m';
   public binanceConfigLive: boolean = false;
   public binanceConfigVerbose: boolean = true;
   public binanceConfigGraphs: boolean = false;
   public binanceConfigBuymaxsize: number = 1;
+  public binanceConfigSellupperpcnt: number = 5;
+  public binanceConfigBuy: number = -5;
   public loggerFilelog: boolean = false;
   public loggerLogfile: string = 'pycryptobot.log';
   public loggerFileloglevel: string = 'DEBUG';

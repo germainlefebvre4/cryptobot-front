@@ -26,6 +26,7 @@ export interface IUserProfileCreate {
 export interface ICryptobotCreate {
     id?: string;
     user_id?: string;
+    customer: string;
     binance_api_url: string;
     binance_api_key: string;
     binance_api_secret: string;
@@ -36,6 +37,8 @@ export interface ICryptobotCreate {
     binance_config_verbose: boolean;
     binance_config_graphs: boolean;
     binance_config_buymaxsize: number;
+    binance_config_sellupperpcnt: number;
+    binance_config_selllowerpcnt: number;
     logger_filelog: boolean;
     logger_logfile: string;
     logger_fileloglevel: string;
@@ -48,6 +51,7 @@ export interface ICryptobotCreate {
 export interface ICryptobot {
     id?: string;
     user_id?: string;
+    customer: string;
     binance_api_url: string;
     binance_api_key: string;
     binance_api_secret: string;
@@ -58,6 +62,8 @@ export interface ICryptobot {
     binance_config_verbose: boolean;
     binance_config_graphs: boolean;
     binance_config_buymaxsize: number;
+    binance_config_sellupperpcnt: number;
+    binance_config_selllowerpcnt: number;
     logger_filelog: boolean;
     logger_logfile: string;
     logger_fileloglevel: string;
@@ -70,6 +76,7 @@ export interface ICryptobot {
 export interface ICryptobotUpdate {
     id?: string;
     user_id?: string;
+    customer: string;
     binance_api_url: string;
     binance_api_key: string;
     binance_api_secret: string;
@@ -80,6 +87,8 @@ export interface ICryptobotUpdate {
     binance_config_verbose: boolean;
     binance_config_graphs: boolean;
     binance_config_buymaxsize: number;
+    binance_config_sellupperpcnt: number;
+    binance_config_selllowerpcnt: number;
     logger_filelog: boolean;
     logger_logfile: string;
     logger_fileloglevel: string;
