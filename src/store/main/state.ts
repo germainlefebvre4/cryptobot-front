@@ -1,4 +1,4 @@
-import { IUserProfile, ICryptobot } from '@/interfaces';
+import { IUserProfile, ICryptobot, IBinanceAccount } from '@/interfaces';
 
 export interface AppNotification {
     content: string;
@@ -16,4 +16,6 @@ export interface MainState {
     notifications: AppNotification[];
     cryptobots: ICryptobot[];
     cryptobot: ICryptobot;
+    binanceAccounts: IBinanceAccount[];
+    binanceAccount: IBinanceAccount;
 }

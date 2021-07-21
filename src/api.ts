@@ -5,6 +5,7 @@ import {
   IUserProfileUpdate,
   IUserProfileCreate,
   ICryptobot,
+  IBinanceAccount,
 } from './interfaces';
 
 function authHeaders(token: string) {
@@ -16,6 +17,7 @@ function authHeaders(token: string) {
 }
 
 export const api = {
+  // Auth
   async logInGetToken(username: string, password: string) {
     const params = new URLSearchParams();
     params.append('username', username);
@@ -29,6 +31,11 @@ export const api = {
   async updateMe(token: string, data: IUserProfileUpdate) {
     return axios.put<IUserProfile>(`${apiUrl}/api/v1/users/me`, data, authHeaders(token));
   },
+  async register(data) {
+    return axios.post(`${apiUrl}/api/v1/users/open`, data);
+  },
+
+  // Users
   async getUsers(token: string) {
     return axios.get<IUserProfile[]>(`${apiUrl}/api/v1/users/`, authHeaders(token));
   },
@@ -50,6 +57,8 @@ export const api = {
       token,
     });
   },
+
+  // Cryptobots
   async getCryptobots(token: string) {
     return axios.get<ICryptobot[]>(`${apiUrl}/api/v1/cryptobots/`, authHeaders(token));
   },
@@ -69,7 +78,23 @@ export const api = {
   async removeCryptobot(token: string, cryptobotId: string) {
     return axios.delete(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
-  async register(data) {
-    return axios.post(`${apiUrl}/api/v1/users/open`, data);
+
+  // Binance Accounts
+  async getBinanceAccounts(token: string) {
+    return axios.get<IBinanceAccount[]>(`${apiUrl}/api/v1/binance/accounts/`, authHeaders(token));
+  },
+  async getBinanceAccount(token: string, binanceAccountId: string) {
+    return axios.get<IBinanceAccount>(`${apiUrl}/api/v1/binance/accounts/${binanceAccountId}`, authHeaders(token));
+  },
+  async createBinanceAccount(token: string, data: IBinanceAccount) {
+    return axios.post(`${apiUrl}/api/v1/binance/accounts/`,
+      data, authHeaders(token));
+  },
+  async updateBinanceAccount(token: string, data: IBinanceAccount, binanceAccountId: string) {
+    return axios.put(`${apiUrl}/api/v1/binance/accounts/${binanceAccountId}`,
+      data, authHeaders(token));
+  },
+  async removeBinanceAccount(token: string, binanceAccountId: string) {
+    return axios.delete(`${apiUrl}/api/v1/binance/accounts/${binanceAccountId}`, authHeaders(token));
   },
 };

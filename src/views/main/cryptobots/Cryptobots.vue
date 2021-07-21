@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container ma-0 pa-0 fluid>
     <v-data-table
       :headers="headers"
       :items="cryptobots"
@@ -149,3 +149,11 @@ export default class Cryptobots extends Vue {
 
 }
 </script>
+
+<style scoped>
+/* 
+.container {
+  max-width: 960px;
+}
+ */
+</style>

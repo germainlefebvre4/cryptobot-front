@@ -92,6 +92,38 @@ export default new Router({
               ],
             },
             {
+              path: 'binance/accounts',
+              component: RouterComponent,
+              redirect: 'binance/accounts/view',
+              children: [
+                {
+                  path: 'view',
+                  component: () => import(
+                    /* webpackChunkName: "main-binance-accounts" */
+                    './views/main/binance_accounts/BinanceAccounts.vue'),
+                },
+                {
+                  path: 'view/:id',
+                  name: 'main-binance-accounts-view',
+                  component: () => import(
+                    /* webpackChunkName: "main-binance-accounts" */
+                    './views/main/binance_accounts/BinanceAccountView.vue'),
+                },
+                {
+                  path: 'create',
+                  component: () => import(
+                    /* webpackChunkName: "main-binance-accounts" */
+                    './views/main/binance_accounts/BinanceAccountCreateOrEdit.vue'),
+                },
+                {
+                  path: 'edit/:id',
+                  name: 'main-binance-accounts-edit',
+                  component: () => import(
+                    /* webpackChunkName: "main-binance-accounts" */ './views/main/binance_accounts/BinanceAccountCreateOrEdit.vue'),
+                },
+              ],
+            },
+            {
               path: 'admin',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'),
               redirect: 'admin/users/all',

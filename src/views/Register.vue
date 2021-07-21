@@ -14,28 +14,28 @@
                     v-model="firstname"
                     prepend-icon="mdi-account"
                     name="firstname"
-                    label="Votre prénom"
+                    label="Full name"
                     type="text"></v-text-field>
-                  <small class="field_error" v-if="formErrors.includes('firstnameEmpty')">Ce champ est obligatoire</small>
+                  <small class="field_error" v-if="formErrors.includes('firstnameEmpty')">Required field</small>
                 </div>
                 <div class="form_field">
                   <v-text-field
                     v-model="email"
                     prepend-icon="mdi-email"
                     name="login"
-                    label="Votre adresse e-mail"
+                    label="Email"
                     type="text"></v-text-field>
-                  <small class="field_error" v-if="formErrors.includes('emailEmpty')">Ce champ est obligatoire</small>
-                  <small class="field_error" v-if="formErrors.includes('emailBadFormatted')">Votre email ne correspond pas à une adresse e-mail valide</small>
+                  <small class="field_error" v-if="formErrors.includes('emailEmpty')">Required field</small>
+                  <small class="field_error" v-if="formErrors.includes('emailBadFormatted')">Your email do not match with a correct emali address.</small>
                 </div>
                 <div class="form_field">
                   <v-text-field
                     v-model="password"
                     prepend-icon="mdi-lock"
                     name="password"
-                    label="Votre mot de passe"
+                    label="Password"
                     type="password"></v-text-field>
-                  <small class="field_error" v-if="formErrors.includes('passwordEmpty')">Ce champ est obligatoire</small>
+                  <small class="field_error" v-if="formErrors.includes('passwordEmpty')">Required field</small>
                 </div>
                 <div class="form_field">
                   <v-checkbox
@@ -43,9 +43,9 @@
                   >
                     <template v-slot:label>
                       <div>
-                        J'accpète les <a
+                        I agree with the <a
                           target="_blank"
-                          href="http://google.fr"
+                          href="/cgu"
                           @click.stop
                         >
                           CGU
@@ -53,19 +53,19 @@
                       </div>
                     </template>
                   </v-checkbox>
-                  <small class="field_error" v-if="formErrors.includes('cguFalsy')">Vous devez accèpter les CGU</small>
+                  <small class="field_error" v-if="formErrors.includes('cguFalsy')">You need to agree with the CGU</small>
                 </div>
               </v-form>
               <div v-if="registerError">
                 <v-alert :value="registerError" transition="fade-transition" type="error">
-                  Une erreur est survenue lors de la création de votre compte.
+                  An error occurred while creating your account.
                 </v-alert>
               </div>
               <v-flex class="caption text-xs-right"></v-flex>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click.prevent="registerCheck">S'inscrire</v-btn>
+              <v-btn @click.prevent="registerCheck">Register</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

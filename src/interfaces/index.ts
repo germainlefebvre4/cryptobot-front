@@ -27,9 +27,9 @@ export interface ICryptobotCreate {
     id?: string;
     user_id?: string;
     customer: string;
-    binance_api_url: string;
-    binance_api_key: string;
-    binance_api_secret: string;
+    // binance_api_url: string;
+    // binance_api_key: string;
+    // binance_api_secret: string;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -52,9 +52,9 @@ export interface ICryptobot {
     id?: string;
     user_id?: string;
     customer: string;
-    binance_api_url: string;
-    binance_api_key: string;
-    binance_api_secret: string;
+    // binance_api_url: string;
+    // binance_api_key: string;
+    // binance_api_secret: string;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -77,9 +77,9 @@ export interface ICryptobotUpdate {
     id?: string;
     user_id?: string;
     customer: string;
-    binance_api_url: string;
-    binance_api_key: string;
-    binance_api_secret: string;
+    // binance_api_url: string;
+    // binance_api_key: string;
+    // binance_api_secret: string;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -96,4 +96,26 @@ export interface ICryptobotUpdate {
     logger_consoleloglevel: string;
     telegram_client_id: string;
     telegram_token: string;
+}
+
+export interface IBinanceAccountCreate {
+    id?: string;
+    user_id?: string;
+    binance_api_key: string;
+    binance_api_secret: string;
+}
+
+export interface IBinanceAccountUpdate {
+    id?: string;
+    user_id?: string;
+    binance_api_key: string;
+    binance_api_secret: string;
+}
+
+export interface IBinanceAccount {
+    id?: string;
+    user_id?: string;
+    binance_api_url: string;
+    binance_api_key: string;
+    binance_api_secret: string;
 }
