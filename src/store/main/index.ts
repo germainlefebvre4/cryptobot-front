@@ -7,18 +7,14 @@ import { ICryptobot, IBinanceAccount } from '@/interfaces';
 
 const defaultBinanceAccount: IBinanceAccount = {
   id: '',
-  user_id: '',
   binance_api_url: '',
   binance_api_key: '',
   binance_api_secret: '',
 };
 
 const defaultCryptobot: ICryptobot = {
+  id: '',
   user_id: '',
-  customer: '',
-  // binance_api_url: '',
-  // binance_api_key: '',
-  // binance_api_secret: '',
   binance_config_base_currency: '',
   binance_config_quote_currency: '',
   binance_config_granularity: '',

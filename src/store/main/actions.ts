@@ -183,8 +183,12 @@ export const actions = {
         try {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
+
+            const binanceAccountId = payload.binance_account_id;
+            delete payload.binance_account_id;
+
             const response = (await Promise.all([
-                api.createCryptobot(context.state.token, payload),
+                api.createCryptobot(context.state.token, payload, binanceAccountId),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
@@ -198,6 +202,10 @@ export const actions = {
         try {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
+
+            const binanceAccountId = payload.binance_account_id;
+            delete payload.binance_account_id;
+
             const response = (await Promise.all([
                 api.updateCryptobot(context.state.token, payload, cryptobotId),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),

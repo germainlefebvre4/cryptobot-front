@@ -6,6 +6,7 @@ import {
   IUserProfileCreate,
   ICryptobot,
   IBinanceAccount,
+  ICryptobotCreate,
 } from './interfaces';
 
 function authHeaders(token: string) {
@@ -65,10 +66,8 @@ export const api = {
   async getCryptobot(token: string, cryptobotId: string) {
     return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
-  async createCryptobot(token: string, data: ICryptobot) {
-    const userId = data.user_id;
-    delete data.user_id;
-    return axios.post(`${apiUrl}/api/v1/cryptobots/`,
+  async createCryptobot(token: string, data: ICryptobotCreate, binanceAccountId: number) {
+    return axios.post(`${apiUrl}/api/v1/cryptobots/?binance_account_id=${binanceAccountId}`,
       data, authHeaders(token));
   },
   async updateCryptobot(token: string, data: ICryptobot, cryptobotId: string) {

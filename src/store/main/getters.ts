@@ -34,4 +34,4 @@ export const readFirstNotification = read(getters.firstNotification);
 export const readCryptobots = read(getters.cryptobots);
 export const readCryptobot = read(getters.cryptobot);
 export const readBinanceAccounts = read(getters.binanceAccounts);
-export const readBinanceAccount = read(getters.binanceAccounts);
+export const readBinanceAccount = read(getters.binanceAccount);

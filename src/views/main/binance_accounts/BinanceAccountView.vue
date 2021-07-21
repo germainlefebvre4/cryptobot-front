@@ -50,7 +50,6 @@ export default class CryptobotCreateOrEdit extends Vue {
   public cryptobotId: string | null = null;
   public userId: string = '';
 
-  public customer: string = '';
   public binanceApiUrl: string = 'https://api.binance.com';
   public binanceApiKey: string = '';
   public binanceApiSecret: string = '';

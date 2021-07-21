@@ -48,7 +48,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Store } from 'vuex';
-import { IBinanceAccount, IBinanceAccountCreate } from '@/interfaces';
+import { IBinanceAccount, IBinanceAccountCreate, IBinanceAccountUpdate } from '@/interfaces';
 import { readUserProfile, readBinanceAccount } from '@/store/main/getters';
 import { dispatchGetBinanceAccount } from '@/store/main/actions';
 import { dispatchCreateBinanceAccount, dispatchUpdateBinanceAccount } from '@/store/main/actions';
@@ -99,27 +99,30 @@ export default class BinanceAccountCreateOrEdit extends Vue {
 
   public async submit() {
     if ((this.$refs.form as any).validate()) {
-      const updatedBinanceAccount: IBinanceAccountCreate = {
-        user_id: this.userId,
-        binance_api_key: this.binanceApiKey,
-        binance_api_secret: this.binanceApiSecret,
-      };
-
       if (this.editMode) {
-        updatedBinanceAccount.id =  this.binanceAccount.id;
+        const updatedBinanceAccount: IBinanceAccountUpdate = {
+          id: this.binanceAccount.id,
+          binance_api_key: this.binanceApiKey,
+          binance_api_secret: this.binanceApiSecret,
+        };
+        await dispatchUpdateBinanceAccount(this.$store, updatedBinanceAccount);
+      } else {
+        const createdBinanceAccount: IBinanceAccountCreate = {
+          binance_api_key: this.binanceApiKey,
+          binance_api_secret: this.binanceApiSecret,
+        };
+        await dispatchCreateBinanceAccount(this.$store, createdBinanceAccount);
       }
-
-      this.editMode ?
-        await dispatchUpdateBinanceAccount(this.$store, updatedBinanceAccount) :
-        await dispatchCreateBinanceAccount(this.$store, updatedBinanceAccount);
 
       this.$router.push('/main/binance/accounts');
     }
   }
 
   private setFormValues() {
-    const binanceAccount: IBinanceAccount = this.binanceAccount;
-    this.userId = binanceAccount.user_id || '';
+    const binanceAccount: IBinanceAccountCreate = {
+      binance_api_key: '',
+      binance_api_secret: '',
+    };
     this.binanceApiKey = binanceAccount.binance_api_key || '';
     this.binanceApiSecret = binanceAccount.binance_api_secret || '';
   }

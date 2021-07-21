@@ -1,31 +1,11 @@
-# bspauto-front
+# Cryptobot Front
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## Build
+```bash
+docker build -t germainlefebvre4/cryptobot-front:0.2.0 --build-arg FRONTEND_ENV=production .
+docker push germainlefebvre4/cryptobot-front:0.2.0
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
+## Deploy
+Go at [https://github.com/germainlefebvre4/cryptobot-project/tree/main/charts](https://github.com/germainlefebvre4/cryptobot-project/tree/main/charts)
