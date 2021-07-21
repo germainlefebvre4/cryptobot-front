@@ -24,12 +24,28 @@ export interface IUserProfileCreate {
 }
 
 export interface ICryptobotCreate {
+    binance_account_id: number;
+    binance_config_base_currency: string;
+    binance_config_quote_currency: string;
+    binance_config_granularity: string;
+    binance_config_live: boolean;
+    binance_config_verbose: boolean;
+    binance_config_graphs: boolean;
+    binance_config_buymaxsize: number;
+    binance_config_sellupperpcnt: number;
+    binance_config_selllowerpcnt: number;
+    logger_filelog: boolean;
+    logger_logfile: string;
+    logger_fileloglevel: string;
+    logger_consolelog: boolean;
+    logger_consoleloglevel: string;
+    telegram_client_id: string;
+    telegram_token: string;
+}
+
+export interface ICryptobotUpdate {
     id?: string;
-    user_id?: string;
-    customer: string;
-    binance_api_url: string;
-    binance_api_key: string;
-    binance_api_secret: string;
+    binance_account_id: number;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -51,10 +67,6 @@ export interface ICryptobotCreate {
 export interface ICryptobot {
     id?: string;
     user_id?: string;
-    customer: string;
-    binance_api_url: string;
-    binance_api_key: string;
-    binance_api_secret: string;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -73,27 +85,20 @@ export interface ICryptobot {
     telegram_token: string;
 }
 
-export interface ICryptobotUpdate {
+export interface IBinanceAccountCreate {
+    binance_api_key: string;
+    binance_api_secret: string;
+}
+
+export interface IBinanceAccountUpdate {
     id?: string;
-    user_id?: string;
-    customer: string;
+    binance_api_key: string;
+    binance_api_secret: string;
+}
+
+export interface IBinanceAccount {
+    id?: string;
     binance_api_url: string;
     binance_api_key: string;
     binance_api_secret: string;
-    binance_config_base_currency: string;
-    binance_config_quote_currency: string;
-    binance_config_granularity: string;
-    binance_config_live: boolean;
-    binance_config_verbose: boolean;
-    binance_config_graphs: boolean;
-    binance_config_buymaxsize: number;
-    binance_config_sellupperpcnt: number;
-    binance_config_selllowerpcnt: number;
-    logger_filelog: boolean;
-    logger_logfile: string;
-    logger_fileloglevel: string;
-    logger_consolelog: boolean;
-    logger_consoleloglevel: string;
-    telegram_client_id: string;
-    telegram_token: string;
 }

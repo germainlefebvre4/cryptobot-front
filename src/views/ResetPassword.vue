@@ -5,22 +5,22 @@
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-12">
             <v-toolbar dark color="primary">
-              <v-toolbar-title>{{appName}} - Réinitialiser le mot de passe</v-toolbar-title>
+              <v-toolbar-title>{{appName}} - Password re-initialization</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <p class="subheading">Entrez votre mot de passe</p>
+              <p class="subheading">New password</p>
               <v-form @keyup.enter="submit" v-model="valid" ref="form" @submit.prevent="" lazy-validation>
-                <v-text-field type="password" ref="password" label="Mot de passe" data-vv-name="password" data-vv-delay="100" data-vv-rules="required" v-validate="'required'" v-model="password1" :error-messages="errors.first('password')">
+                <v-text-field type="password" ref="password" label="Password" data-vv-name="password" data-vv-delay="100" data-vv-rules="required" v-validate="'required'" v-model="password1" :error-messages="errors.first('password')">
                 </v-text-field>
-                <v-text-field type="password" label="Confirmer le mot de passe" data-vv-name="password_confirmation" data-vv-delay="100" data-vv-rules="required|confirmed:$password" data-vv-as="password" v-validate="'required|confirmed:password'" v-model="password2" :error-messages="errors.first('password_confirmation')">
+                <v-text-field type="password" label="Confirm your password" data-vv-name="password_confirmation" data-vv-delay="100" data-vv-rules="required|confirmed:$password" data-vv-as="password" v-validate="'required|confirmed:password'" v-model="password2" :error-messages="errors.first('password_confirmation')">
                 </v-text-field>
               </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click="cancel">Annuler</v-btn>
-              <v-btn @click="reset">Effacer</v-btn>
-              <v-btn @click="submit" :disabled="!valid">Enregistrer</v-btn>
+              <v-btn @click="cancel">Cancel</v-btn>
+              <v-btn @click="reset">Erase</v-btn>
+              <v-btn @click="submit" :disabled="!valid">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

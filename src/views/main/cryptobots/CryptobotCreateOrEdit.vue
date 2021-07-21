@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card class="ma-3 pa-3" max-width="800px" style="margin-left: 0px;">
+  <v-container ma-0 pa-0>
+    <v-card>
       <v-card-title primary-title>
         <div class="headline primary--text">{{ title }}</div>
       </v-card-title>
@@ -76,16 +76,14 @@
                 <v-subheader>Binance</v-subheader>
               </v-row>
               <v-row>
-                <v-text-field
-                  label="Binance API Key"
-                  v-model="binanceApiKey"
-                ></v-text-field>
-                  </v-row>
-                  <v-row>
-                <v-text-field
-                  label="Binance API Secret"
-                  v-model="binanceApiSecret"
-                ></v-text-field>
+                <v-select
+                  v-model="binanceAccountId"
+                  :items="binanceAccounts"
+                  item-text="binance_api_key"
+                  item-value="id"
+                  label="Binance account"
+                  solo
+                ></v-select>
               </v-row>
             </v-container>
             
@@ -125,12 +123,12 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn @click="cancel">Annuler</v-btn>
+        <v-btn @click="cancel">Cancel</v-btn>
         <v-btn
           @click="submit"
           :disabled="!valid"
         >
-          {{ editMode ? 'Enregistrer' : 'Generate the bot'}}
+          {{ editMode ? 'Save' : 'Generate the bot'}}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -140,9 +138,9 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Store } from 'vuex';
-import { ICryptobot, ICryptobotCreate } from '@/interfaces';
-import { readUserProfile, readCryptobot } from '@/store/main/getters';
-import { dispatchGetCryptobot } from '@/store/main/actions';
+import { ICryptobot, ICryptobotCreate, ICryptobotUpdate } from '@/interfaces';
+import { readUserProfile, readCryptobot, readBinanceAccounts } from '@/store/main/getters';
+import { dispatchGetBinanceAccounts, dispatchGetCryptobot } from '@/store/main/actions';
 import { dispatchCreateCryptobot, dispatchUpdateCryptobot } from '@/store/main/actions';
 import { Dictionary } from 'vue-router/types/router';
 
@@ -155,13 +153,10 @@ export default class CryptobotCreateOrEdit extends Vue {
   public title: string = 'Create a new bot';
   public valid = true;
 
-  public cryptobotId: string | null = null;
+  public cryptobotId: string = '';
   public userId: string = '';
 
-  public customer: string = this.userId.toString();
-  public binanceApiUrl: string = 'https://api.binance.com';
-  public binanceApiKey: string = '';
-  public binanceApiSecret: string = '';
+  public binanceAccountId: number = 0;
   public binanceConfigBaseCurrency: string = 'btc';
   public binanceConfigQuoteCurrency: string = 'eur';
   public binanceConfigGranularity: string = '15m';
@@ -185,7 +180,6 @@ export default class CryptobotCreateOrEdit extends Vue {
     const userProfile = readUserProfile(this.$store);
     if (userProfile) {
       this.userId = userProfile.id;
-      console.log(userProfile.id, this.userId, this.userId.toString());
     }
     this.editMode = this.$router.currentRoute.name === 'main-cryptobots-edit' ? true : false;
     if (this.editMode) {
@@ -194,10 +188,15 @@ export default class CryptobotCreateOrEdit extends Vue {
       await dispatchGetCryptobot(this.$store, this.cryptobotId);
       this.setFormValues();
     }
+    await dispatchGetBinanceAccounts(this.$store);
   }
 
   get userProfile() {
     return readUserProfile(this.$store);
+  }
+
+  get binanceAccounts() {
+    return readBinanceAccounts(this.$store);
   }
 
   get cryptobot() {
@@ -210,37 +209,50 @@ export default class CryptobotCreateOrEdit extends Vue {
 
   public async submit() {
     if ((this.$refs.form as any).validate()) {
-      const updatedCryptobot: ICryptobotCreate = {
-        user_id: this.userId,
-        customer: this.userId,
-        binance_api_url: this.binanceApiUrl,
-        binance_api_key: this.binanceApiKey,
-        binance_api_secret: this.binanceApiSecret,
-        binance_config_base_currency: this.binanceConfigBaseCurrency,
-        binance_config_quote_currency: this.binanceConfigQuoteCurrency,
-        binance_config_granularity: this.binanceConfigGranularity,
-        binance_config_live: this.binanceConfigLive,
-        binance_config_verbose : this.binanceConfigVerbose,
-        binance_config_graphs: this.binanceConfigGraphs,
-        binance_config_buymaxsize: this.binanceConfigBuymaxsize,
-        binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
-        binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
-        logger_filelog: this.loggerFilelog,
-        logger_logfile: this.loggerLogfile,
-        logger_fileloglevel: this.loggerFileloglevel,
-        logger_consolelog: this.loggerConsolelog,
-        logger_consoleloglevel: this.loggerConsoleloglevel,
-        telegram_client_id: this.telegramClientId,
-        telegram_token: this.telegramToken,
-      };
-
       if (this.editMode) {
-        updatedCryptobot.id =  this.cryptobot.id;
+        const updatedCryptobot: ICryptobotUpdate = {
+          id: this.cryptobotId,
+          binance_account_id: this.binanceAccountId,
+          binance_config_base_currency: this.binanceConfigBaseCurrency,
+          binance_config_quote_currency: this.binanceConfigQuoteCurrency,
+          binance_config_granularity: this.binanceConfigGranularity,
+          binance_config_live: this.binanceConfigLive,
+          binance_config_verbose : this.binanceConfigVerbose,
+          binance_config_graphs: this.binanceConfigGraphs,
+          binance_config_buymaxsize: this.binanceConfigBuymaxsize,
+          binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
+          binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
+          logger_filelog: this.loggerFilelog,
+          logger_logfile: this.loggerLogfile,
+          logger_fileloglevel: this.loggerFileloglevel,
+          logger_consolelog: this.loggerConsolelog,
+          logger_consoleloglevel: this.loggerConsoleloglevel,
+          telegram_client_id: this.telegramClientId,
+          telegram_token: this.telegramToken,
+        };
+        await dispatchUpdateCryptobot(this.$store, updatedCryptobot);
+    } else {
+        const createdCryptobot: ICryptobotCreate = {
+          binance_account_id: this.binanceAccountId,
+          binance_config_base_currency: this.binanceConfigBaseCurrency,
+          binance_config_quote_currency: this.binanceConfigQuoteCurrency,
+          binance_config_granularity: this.binanceConfigGranularity,
+          binance_config_live: this.binanceConfigLive,
+          binance_config_verbose : this.binanceConfigVerbose,
+          binance_config_graphs: this.binanceConfigGraphs,
+          binance_config_buymaxsize: this.binanceConfigBuymaxsize,
+          binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
+          binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
+          logger_filelog: this.loggerFilelog,
+          logger_logfile: this.loggerLogfile,
+          logger_fileloglevel: this.loggerFileloglevel,
+          logger_consolelog: this.loggerConsolelog,
+          logger_consoleloglevel: this.loggerConsoleloglevel,
+          telegram_client_id: this.telegramClientId,
+          telegram_token: this.telegramToken,
+        };
+        await dispatchCreateCryptobot(this.$store, createdCryptobot);
       }
-
-      this.editMode ?
-        await dispatchUpdateCryptobot(this.$store, updatedCryptobot) :
-        await dispatchCreateCryptobot(this.$store, updatedCryptobot);
 
       this.$router.push('/main/cryptobots');
     }
@@ -249,9 +261,9 @@ export default class CryptobotCreateOrEdit extends Vue {
   private setFormValues() {
     const cryptobot: ICryptobot = this.cryptobot;
     this.userId = cryptobot.user_id || '';
-    this.binanceApiUrl = cryptobot.binance_api_url || '';
-    this.binanceApiKey = cryptobot.binance_api_key || '';
-    this.binanceApiSecret = cryptobot.binance_api_secret || '';
+    // this.binanceApiUrl = cryptobot.binance_api_url || '';
+    // this.binanceApiKey = cryptobot.binance_api_key || '';
+    // this.binanceApiSecret = cryptobot.binance_api_secret || '';
     this.binanceConfigBaseCurrency = cryptobot.binance_config_base_currency || '';
     this.binanceConfigQuoteCurrency = cryptobot.binance_config_quote_currency || '';
     this.binanceConfigGranularity = cryptobot.binance_config_granularity || '';

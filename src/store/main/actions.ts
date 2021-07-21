@@ -14,6 +14,8 @@ import {
     commitSetUserProfile,
     commitSetCryptobots,
     commitSetCryptobot,
+    commitSetBinanceAccounts,
+    commitSetBinanceAccount,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -156,6 +158,7 @@ export const actions = {
             commitAddNotification(context, { color: 'error', content: 'Error resetting password' });
         }
     },
+    // Cryptobots
     async actionGetCryptobots(context: MainContext) {
         try {
             const response = await api.getCryptobots(context.state.token);
@@ -180,8 +183,12 @@ export const actions = {
         try {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
+
+            const binanceAccountId = payload.binance_account_id;
+            delete payload.binance_account_id;
+
             const response = (await Promise.all([
-                api.createCryptobot(context.state.token, payload),
+                api.createCryptobot(context.state.token, payload, binanceAccountId),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
@@ -195,6 +202,10 @@ export const actions = {
         try {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
+
+            const binanceAccountId = payload.binance_account_id;
+            delete payload.binance_account_id;
+
             const response = (await Promise.all([
                 api.updateCryptobot(context.state.token, payload, cryptobotId),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
@@ -220,6 +231,71 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
+    // Binance Accounts
+    async actionGetBinanceAccounts(context: MainContext) {
+        try {
+            const response = await api.getBinanceAccounts(context.state.token);
+            if (response) {
+                commitSetBinanceAccounts(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetBinanceAccount(context: MainContext, cryptobotId: string) {
+        try {
+            const response = await api.getBinanceAccount(context.state.token, cryptobotId);
+            if (response) {
+                commitSetBinanceAccount(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionCreateBinanceAccount(context: MainContext, payload) {
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.createBinanceAccount(context.state.token, payload),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionUpdateBinanceAccount(context: MainContext, payload) {
+        const cryptobotId = payload.id;
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.updateBinanceAccount(context.state.token, payload, cryptobotId),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionRemoveBinanceAccount(context: MainContext, cryptobotId: string) {
+        try {
+            const loadingNotification = { content: 'deleting', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.removeBinanceAccount(context.state.token, cryptobotId),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            // commitRemoveBinanceAccount(context, response.data);
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Binance account successfully deleted', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
 };
 
 const { dispatch } = getStoreAccessors<MainState | any, State>('');
@@ -237,8 +313,15 @@ export const dispatchUpdateUserProfile = dispatch(actions.actionUpdateUserProfil
 export const dispatchRemoveNotification = dispatch(actions.removeNotification);
 export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
+
 export const dispatchGetCryptobots = dispatch(actions.actionGetCryptobots);
 export const dispatchGetCryptobot = dispatch(actions.actionGetCryptobot);
 export const dispatchCreateCryptobot = dispatch(actions.actionCreateCryptobot);
 export const dispatchUpdateCryptobot = dispatch(actions.actionUpdateCryptobot);
 export const dispatchRemoveCryptobot = dispatch(actions.actionRemoveCryptobot);
+
+export const dispatchGetBinanceAccounts = dispatch(actions.actionGetBinanceAccounts);
+export const dispatchGetBinanceAccount = dispatch(actions.actionGetBinanceAccount);
+export const dispatchCreateBinanceAccount = dispatch(actions.actionCreateBinanceAccount);
+export const dispatchUpdateBinanceAccount = dispatch(actions.actionUpdateBinanceAccount);
+export const dispatchRemoveBinanceAccount = dispatch(actions.actionRemoveBinanceAccount);

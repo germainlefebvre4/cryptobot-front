@@ -4,7 +4,28 @@
       <v-layout column fill-height>
 
         <v-list subheader>
+          <v-subheader>Binance Accounts</v-subheader>
+          <v-list-item to="/main/binance/accounts/view">
+            <v-list-item-action>
+              <v-icon>mdi-format-list-bulleted</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>List accounts</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/binance/accounts/create">
+            <v-list-item-action>
+              <v-icon>mdi-pen</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Add an account</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
 
+        <v-divider></v-divider>
+
+        <v-list subheader>
           <v-subheader>Bots</v-subheader>
           <v-list-item to="/main/cryptobots/view">
             <v-list-item-action>
@@ -23,7 +44,9 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+
         <v-divider></v-divider>
+
         <v-list subheader v-show="hasAdminAccess">
           <v-subheader>Administration</v-subheader>
           <v-list-item to="/main/admin/users/all">

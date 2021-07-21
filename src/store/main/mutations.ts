@@ -1,4 +1,4 @@
-import { IUserProfile, ICryptobot } from '@/interfaces';
+import { IUserProfile, ICryptobot, IBinanceAccount } from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
@@ -29,11 +29,19 @@ export const mutations = {
     removeNotification(state: MainState, payload: AppNotification) {
         state.notifications = state.notifications.filter((notification) => notification !== payload);
     },
+    // Cryptobot
     setCryptobots(state: MainState, payload: ICryptobot[]) {
         state.cryptobots = payload;
     },
     setCryptobot(state: MainState, payload: ICryptobot) {
         state.cryptobot = payload;
+    },
+    // Binance Accounts
+    setBinanceAccounts(state: MainState, payload: IBinanceAccount[]) {
+        state.binanceAccounts = payload;
+    },
+    setBinanceAccount(state: MainState, payload: IBinanceAccount) {
+        state.binanceAccount = payload;
     },
 };
 
@@ -47,5 +55,9 @@ export const commitSetToken = commit(mutations.setToken);
 export const commitSetUserProfile = commit(mutations.setUserProfile);
 export const commitAddNotification = commit(mutations.addNotification);
 export const commitRemoveNotification = commit(mutations.removeNotification);
+
 export const commitSetCryptobots = commit(mutations.setCryptobots);
 export const commitSetCryptobot = commit(mutations.setCryptobot);
+
+export const commitSetBinanceAccounts = commit(mutations.setBinanceAccounts);
+export const commitSetBinanceAccount = commit(mutations.setBinanceAccount);
