@@ -61,7 +61,7 @@ export default class CryptobotCreateOrEdit extends Vue {
   public binanceConfigGraphs: boolean = false;
   public binanceConfigBuymaxsize: number = 1;
   public binanceConfigSellupperpcnt: number = 5;
-  public binanceConfigBuy: number = -5;
+  public binanceConfigSelllowerpcnt: number = -5;
   public loggerFilelog: boolean = false;
   public loggerLogfile: string = 'pycryptobot.log';
   public loggerFileloglevel: string = 'DEBUG';

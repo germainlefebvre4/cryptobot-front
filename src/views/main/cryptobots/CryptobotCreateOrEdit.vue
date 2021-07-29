@@ -33,6 +33,7 @@
                     <v-text-field
                       label="Base currency"
                       v-model="binanceConfigBaseCurrency"
+                      :rules="validateConfigBaseCurrency"
                     />
                   </v-flex>
                   <v-flex grow>
@@ -41,6 +42,7 @@
                     <v-text-field
                       label="Quote currency"
                       v-model="binanceConfigQuoteCurrency"
+                      :rules="validateConfigQuoteCurrency"
                     />
                   </v-flex>
                 </v-layout>
@@ -57,6 +59,8 @@
                     <v-text-field
                       label="Buy max size"
                       v-model="binanceConfigBuymaxsize"
+                      type="number"
+                      :rules="validateConfigBuymaxsize"
                     />
                   </v-flex>
                   <v-flex grow>
@@ -65,6 +69,28 @@
                     <v-text-field
                       label="Granularity"
                       v-model="binanceConfigGranularity"
+                      :rules="validateConfigGranularity"
+                    />
+                  </v-flex>
+                </v-layout>
+              </v-row>
+              <v-row>
+                <v-layout wrap fill-height>
+                  <v-flex grow>
+                    <v-text-field
+                      label="Buy upper  percent"
+                      v-model="binanceConfigSellupperpcnt"
+                      :rules="validateConfigSellupperpcnt"
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                  </v-flex>
+                  <v-flex grow>
+                    <v-text-field
+                      label="Sell lower percent"
+                      v-model="binanceConfigSelllowerpcnt"
+                      type="number"
+                      :rules="validateConfigSelllowerpcnt"
                     />
                   </v-flex>
                 </v-layout>
@@ -82,7 +108,8 @@
                   item-text="binance_api_key"
                   item-value="id"
                   label="Binance account"
-                  solo
+                  :rules="[v => v || 'Please select a Binance account']"
+                  required
                 ></v-select>
               </v-row>
             </v-container>
@@ -95,6 +122,7 @@
                 <v-text-field
                   label="Console Loglevel"
                   v-model="loggerConsoleloglevel"
+                  :rules="validateLoggerConsoleloglevel"
                 ></v-text-field>
               </v-row>
             </v-container>
@@ -107,12 +135,14 @@
                 <v-text-field
                   label="Client ID"
                   v-model="telegramClientId"
+                  :rules="validateTelegramClientId"
                 ></v-text-field>
                   </v-row>
                   <v-row>
                 <v-text-field
                   label="Token"
                   v-model="telegramToken"
+                  :rules="validateTelegramToken"
                 ></v-text-field>
               </v-row>
             </v-container>
@@ -157,13 +187,13 @@ export default class CryptobotCreateOrEdit extends Vue {
   public userId: string = '';
 
   public binanceAccountId: number = 0;
-  public binanceConfigBaseCurrency: string = 'btc';
-  public binanceConfigQuoteCurrency: string = 'eur';
+  public binanceConfigBaseCurrency: string = 'BTC';
+  public binanceConfigQuoteCurrency: string = 'EUR';
   public binanceConfigGranularity: string = '15m';
   public binanceConfigLive: boolean = false;
   public binanceConfigVerbose: boolean = true;
   public binanceConfigGraphs: boolean = false;
-  public binanceConfigBuymaxsize: number = 1;
+  public binanceConfigBuymaxsize: number = 0;
   public binanceConfigSellupperpcnt: number = 5;
   public binanceConfigSelllowerpcnt: number = -5;
   public loggerFilelog: boolean = false;
@@ -175,6 +205,49 @@ export default class CryptobotCreateOrEdit extends Vue {
   public telegramToken: string = '';
 
   private editMode = false;
+
+  private validateConfigBaseCurrency = [
+    (v) => v.length > 0 || 'Required',
+  ];
+
+  private validateConfigQuoteCurrency = [
+    (v) => v.length > 0 || 'Required',
+  ];
+
+  private validateConfigBuymaxsize = [
+    // (v) => v !== '0' || 'Required',
+    (v) => v != 0 || 'Required',
+  ];
+
+  private validateConfigGranularity = [
+    (v) => v.length > 0 || 'Required',
+    (v) => v[v.length - 1] === 'm' || 'Supported format: 15m, 60m',
+  ];
+
+  private validateConfigSellupperpcnt = [
+    (v) => v != 0 || 'Required',
+  ];
+
+  private validateConfigSelllowerpcnt = [
+    (v) => v != 0 || 'Required',
+  ];
+
+  private validateBinanceAccount = [
+    (v) => !!v || 'Binance account is required',
+  ];
+
+  private validateLoggerConsoleloglevel = [
+    (v) => v.length > 0 || 'Required',
+    (v) => ['DEBUG', 'INFO', 'ERROR'].includes(v) || 'Supported format: DEBUG, INFO, ERROR',
+  ];
+
+  private validateTelegramClientId = [
+    (v) => v.length > 0 || 'Please fill the Telegram Client ID',
+  ];
+
+  private validateTelegramToken = [
+    (v) => v.length > 0 || 'Please fill the Telegram Token',
+  ];
 
   public async mounted() {
     const userProfile = readUserProfile(this.$store);
@@ -261,16 +334,20 @@ export default class CryptobotCreateOrEdit extends Vue {
   private setFormValues() {
     const cryptobot: ICryptobot = this.cryptobot;
     this.userId = cryptobot.user_id || '';
-    // this.binanceApiUrl = cryptobot.binance_api_url || '';
-    // this.binanceApiKey = cryptobot.binance_api_key || '';
-    // this.binanceApiSecret = cryptobot.binance_api_secret || '';
+    this.binanceAccounts.forEach((account) => {
+      if (parseInt(account.id || '', 10) === cryptobot.binance_account_id) {
+        this.binanceAccountId = parseInt(account.id || '', 10);
+      }
+    });
     this.binanceConfigBaseCurrency = cryptobot.binance_config_base_currency || '';
     this.binanceConfigQuoteCurrency = cryptobot.binance_config_quote_currency || '';
     this.binanceConfigGranularity = cryptobot.binance_config_granularity || '';
     this.binanceConfigLive = cryptobot.binance_config_live || false;
     this.binanceConfigVerbose = cryptobot.binance_config_verbose || false;
     this.binanceConfigGraphs = cryptobot.binance_config_graphs || false;
-    this.binanceConfigBuymaxsize = cryptobot.binance_config_buymaxsize || 1;
+    this.binanceConfigBuymaxsize = cryptobot.binance_config_buymaxsize || 0;
+    this.binanceConfigSellupperpcnt = cryptobot.binance_config_sellupperpcnt || 0;
+    this.binanceConfigSelllowerpcnt = cryptobot.binance_config_selllowerpcnt || 0;
     this.loggerFilelog = cryptobot.logger_filelog || false;
     this.loggerLogfile = cryptobot.logger_logfile || 'pycryptobot.log';
     this.loggerFileloglevel = cryptobot.logger_fileloglevel || 'DEBUG';
