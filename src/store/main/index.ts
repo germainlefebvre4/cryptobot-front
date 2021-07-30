@@ -15,6 +15,7 @@ const defaultBinanceAccount: IBinanceAccount = {
 const defaultCryptobot: ICryptobot = {
   id: '',
   user_id: '',
+  binance_account_id: 0,
   binance_config_base_currency: '',
   binance_config_quote_currency: '',
   binance_config_granularity: '',

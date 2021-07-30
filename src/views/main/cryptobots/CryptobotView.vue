@@ -14,14 +14,14 @@
               <v-row>
                 <v-text-field
                   disabled
-                  :value=binanceConfigBaseCurrency
+                  :value=cryptobot.binance_config_base_currency
                   label="Base currency"
                 ></v-text-field>
                   </v-row>
                   <v-row>
                 <v-text-field
                   disabled
-                  :value=binanceConfigQuoteCurrency
+                  :value=cryptobot.binance_config_quote_currency
                   label="Quote currency"
                 ></v-text-field>
               </v-row>
@@ -50,23 +50,22 @@ export default class CryptobotCreateOrEdit extends Vue {
   public cryptobotId: string | null = null;
   public userId: string = '';
 
-  public binanceApiUrl: string = 'https://api.binance.com';
-  public binanceApiKey: string = '';
-  public binanceApiSecret: string = '';
-  public binanceConfigBaseCurrency: string = 'btc';
-  public binanceConfigQuoteCurrency: string = 'eur';
-  public binanceConfigGranularity: string = '15m';
+  public binanceAccountId: number = 0;
+  public binanceConfigBaseCurrency: string = '';
+  public binanceConfigQuoteCurrency: string = '';
+  public binanceConfigGranularity: string = '';
   public binanceConfigLive: boolean = false;
-  public binanceConfigVerbose: boolean = true;
+  public binanceConfigVerbose: boolean = false;
   public binanceConfigGraphs: boolean = false;
-  public binanceConfigBuymaxsize: number = 1;
-  public binanceConfigSellupperpcnt: number = 5;
-  public binanceConfigBuy: number = -5;
+  public binanceConfigBuymaxsize: number = 0;
+  public binanceConfigSellupperpcnt: number = 0;
+  public binanceConfigSelllowerpcnt: number = 0;
+  public binanceConfigBuy: number = 0;
   public loggerFilelog: boolean = false;
-  public loggerLogfile: string = 'pycryptobot.log';
-  public loggerFileloglevel: string = 'DEBUG';
+  public loggerLogfile: string = '';
+  public loggerFileloglevel: string = '';
   public loggerConsolelog: boolean = true;
-  public loggerConsoleloglevel: string = 'INFO';
+  public loggerConsoleloglevel: string = '';
   public telegramClientId: string = '';
   public telegramToken: string = '';
 

@@ -67,6 +67,7 @@ export interface ICryptobotUpdate {
 export interface ICryptobot {
     id?: string;
     user_id?: string;
+    binance_account_id: number;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
