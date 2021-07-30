@@ -3,8 +3,8 @@
 
 ## Build
 ```bash
-docker build -t germainlefebvre4/cryptobot-front:0.2.0 --build-arg FRONTEND_ENV=production .
-docker push germainlefebvre4/cryptobot-front:0.2.0
+docker build -t germainlefebvre4/cryptobot-front:0.3.0 --build-arg FRONTEND_ENV=production .
+docker push germainlefebvre4/cryptobot-front:0.3.0
 ```
 
 ## Deploy
