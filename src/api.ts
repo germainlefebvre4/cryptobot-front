@@ -5,8 +5,9 @@ import {
   IUserProfileUpdate,
   IUserProfileCreate,
   ICryptobot,
-  IBinanceAccount,
   ICryptobotCreate,
+  IBinanceAccount,
+  ITelegram,
 } from './interfaces';
 
 function authHeaders(token: string) {
@@ -66,8 +67,8 @@ export const api = {
   async getCryptobot(token: string, cryptobotId: string) {
     return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
-  async createCryptobot(token: string, data: ICryptobotCreate, binanceAccountId: number) {
-    return axios.post(`${apiUrl}/api/v1/cryptobots/?binance_account_id=${binanceAccountId}`,
+  async createCryptobot(token: string, data: ICryptobotCreate, binanceAccountId: number, telegramId: number) {
+    return axios.post(`${apiUrl}/api/v1/cryptobots/?binance_account_id=${binanceAccountId}&telegram_id=${telegramId}`,
       data, authHeaders(token));
   },
   async updateCryptobot(token: string, data: ICryptobot, cryptobotId: string) {
@@ -95,5 +96,24 @@ export const api = {
   },
   async removeBinanceAccount(token: string, binanceAccountId: string) {
     return axios.delete(`${apiUrl}/api/v1/binance/accounts/${binanceAccountId}`, authHeaders(token));
+  },
+
+  // Telegrams
+  async getTelegrams(token: string) {
+    return axios.get<ITelegram[]>(`${apiUrl}/api/v1/telegram/`, authHeaders(token));
+  },
+  async getTelegram(token: string, telegramId: string) {
+    return axios.get<ITelegram>(`${apiUrl}/api/v1/telegram/${telegramId}`, authHeaders(token));
+  },
+  async createTelegram(token: string, data: ITelegram) {
+    return axios.post(`${apiUrl}/api/v1/telegram/`,
+      data, authHeaders(token));
+  },
+  async updateTelegram(token: string, data: ITelegram, telegramId: string) {
+    return axios.put(`${apiUrl}/api/v1/telegram/${telegramId}`,
+      data, authHeaders(token));
+  },
+  async removeTelegram(token: string, telegramId: string) {
+    return axios.delete(`${apiUrl}/api/v1/telegram/${telegramId}`, authHeaders(token));
   },
 };

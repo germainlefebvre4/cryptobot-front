@@ -16,7 +16,7 @@
                     <v-switch
                       v-model="binanceConfigLive"
                       inset
-                      :label="`Live: ${binanceConfigLive.toString()}`"
+                      :label="binanceConfigLiveLabel(binanceConfigLive)"
                     ></v-switch>
                   </v-flex>
                 </v-layout>
@@ -113,39 +113,24 @@
                 ></v-select>
               </v-row>
             </v-container>
-            
-            <v-container>
-              <v-row>
-                <v-subheader>Logger</v-subheader>
-              </v-row>
-              <v-row>
-                <v-text-field
-                  label="Console Loglevel"
-                  v-model="loggerConsoleloglevel"
-                  :rules="validateLoggerConsoleloglevel"
-                ></v-text-field>
-              </v-row>
-            </v-container>
-            
+
             <v-container>
               <v-row>
                 <v-subheader>Telegram</v-subheader>
               </v-row>
               <v-row>
-                <v-text-field
-                  label="Client ID"
-                  v-model="telegramClientId"
-                  :rules="validateTelegramClientId"
-                ></v-text-field>
-                  </v-row>
-                  <v-row>
-                <v-text-field
-                  label="Token"
-                  v-model="telegramToken"
-                  :rules="validateTelegramToken"
-                ></v-text-field>
+                <v-select
+                  v-model="telegramId"
+                  :items="telegrams"
+                  item-text="client_id"
+                  item-value="id"
+                  label="Telegram channel"
+                  :rules="[v => v || 'Please select a Telegram channel']"
+                  required
+                ></v-select>
               </v-row>
             </v-container>
+
             
           </v-form>
           
@@ -169,8 +154,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Store } from 'vuex';
 import { ICryptobot, ICryptobotCreate, ICryptobotUpdate } from '@/interfaces';
-import { readUserProfile, readCryptobot, readBinanceAccounts } from '@/store/main/getters';
-import { dispatchGetBinanceAccounts, dispatchGetCryptobot } from '@/store/main/actions';
+import { readUserProfile, readCryptobot, readBinanceAccounts, readTelegrams } from '@/store/main/getters';
+import { dispatchGetBinanceAccounts, dispatchGetCryptobot, dispatchGetTelegrams } from '@/store/main/actions';
 import { dispatchCreateCryptobot, dispatchUpdateCryptobot } from '@/store/main/actions';
 import { Dictionary } from 'vue-router/types/router';
 
@@ -187,13 +172,14 @@ export default class CryptobotCreateOrEdit extends Vue {
   public userId: string = '';
 
   public binanceAccountId: number = 0;
+  public telegramId: number = 0;
   public binanceConfigBaseCurrency: string = 'BTC';
   public binanceConfigQuoteCurrency: string = 'EUR';
   public binanceConfigGranularity: string = '15m';
   public binanceConfigLive: boolean = false;
   public binanceConfigVerbose: boolean = true;
   public binanceConfigGraphs: boolean = false;
-  public binanceConfigBuymaxsize: number = 0;
+  public binanceConfigBuymaxsize: number | null = null;
   public binanceConfigSellupperpcnt: number = 5;
   public binanceConfigSelllowerpcnt: number = -5;
   public loggerFilelog: boolean = false;
@@ -216,7 +202,9 @@ export default class CryptobotCreateOrEdit extends Vue {
 
   private validateConfigBuymaxsize = [
     // (v) => v !== '0' || 'Required',
-    (v) => v != 0 || 'Required',
+    // (v) => v.length > 0 || 'Required',
+    (v) => v !== null || 'Required',
+    (v) => v != 0 || 'Not null required',
   ];
 
   private validateConfigGranularity = [
@@ -241,14 +229,6 @@ export default class CryptobotCreateOrEdit extends Vue {
     (v) => ['DEBUG', 'INFO', 'ERROR'].includes(v) || 'Supported format: DEBUG, INFO, ERROR',
   ];
 
-  private validateTelegramClientId = [
-    (v) => v.length > 0 || 'Please fill the Telegram Client ID',
-  ];
-
-  private validateTelegramToken = [
-    (v) => v.length > 0 || 'Please fill the Telegram Token',
-  ];
-
   public async mounted() {
     const userProfile = readUserProfile(this.$store);
     if (userProfile) {
@@ -262,6 +242,8 @@ export default class CryptobotCreateOrEdit extends Vue {
       this.setFormValues();
     }
     await dispatchGetBinanceAccounts(this.$store);
+    await dispatchGetTelegrams(this.$store);
+
   }
 
   get userProfile() {
@@ -270,6 +252,10 @@ export default class CryptobotCreateOrEdit extends Vue {
 
   get binanceAccounts() {
     return readBinanceAccounts(this.$store);
+  }
+
+  get telegrams() {
+    return readTelegrams(this.$store);
   }
 
   get cryptobot() {
@@ -286,13 +272,14 @@ export default class CryptobotCreateOrEdit extends Vue {
         const updatedCryptobot: ICryptobotUpdate = {
           id: this.cryptobotId,
           binance_account_id: this.binanceAccountId,
+          telegram_id: this.telegramId,
           binance_config_base_currency: this.binanceConfigBaseCurrency,
           binance_config_quote_currency: this.binanceConfigQuoteCurrency,
           binance_config_granularity: this.binanceConfigGranularity,
           binance_config_live: this.binanceConfigLive,
           binance_config_verbose : this.binanceConfigVerbose,
           binance_config_graphs: this.binanceConfigGraphs,
-          binance_config_buymaxsize: this.binanceConfigBuymaxsize,
+          binance_config_buymaxsize: this.binanceConfigBuymaxsize || 0,
           binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
           binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
           logger_filelog: this.loggerFilelog,
@@ -307,13 +294,14 @@ export default class CryptobotCreateOrEdit extends Vue {
     } else {
         const createdCryptobot: ICryptobotCreate = {
           binance_account_id: this.binanceAccountId,
+          telegram_id: this.telegramId,
           binance_config_base_currency: this.binanceConfigBaseCurrency,
           binance_config_quote_currency: this.binanceConfigQuoteCurrency,
           binance_config_granularity: this.binanceConfigGranularity,
           binance_config_live: this.binanceConfigLive,
           binance_config_verbose : this.binanceConfigVerbose,
           binance_config_graphs: this.binanceConfigGraphs,
-          binance_config_buymaxsize: this.binanceConfigBuymaxsize,
+          binance_config_buymaxsize: this.binanceConfigBuymaxsize || 0,
           binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
           binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
           logger_filelog: this.loggerFilelog,
@@ -334,11 +322,8 @@ export default class CryptobotCreateOrEdit extends Vue {
   private setFormValues() {
     const cryptobot: ICryptobot = this.cryptobot;
     this.userId = cryptobot.user_id || '';
-    this.binanceAccounts.forEach((account) => {
-      if (parseInt(account.id || '', 10) === cryptobot.binance_account_id) {
-        this.binanceAccountId = parseInt(account.id || '', 10);
-      }
-    });
+    this.binanceAccountId = cryptobot.binance_account_id || 0;
+    this.telegramId = cryptobot.telegram_id || 0;
     this.binanceConfigBaseCurrency = cryptobot.binance_config_base_currency || '';
     this.binanceConfigQuoteCurrency = cryptobot.binance_config_quote_currency || '';
     this.binanceConfigGranularity = cryptobot.binance_config_granularity || '';
@@ -356,6 +341,11 @@ export default class CryptobotCreateOrEdit extends Vue {
     this.telegramClientId = cryptobot.telegram_client_id || '';
     this.telegramToken = cryptobot.telegram_token || '';
   }
+
+  private binanceConfigLiveLabel(live: boolean) {
+    return live ? 'Live: real funds!' : 'Dry-run: dummy funds. Useful for discovery.';
+  }
+
 }
 
 </script>

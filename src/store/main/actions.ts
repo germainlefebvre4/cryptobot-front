@@ -16,6 +16,8 @@ import {
     commitSetCryptobot,
     commitSetBinanceAccounts,
     commitSetBinanceAccount,
+    commitSetTelegrams,
+    commitSetTelegram,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -185,10 +187,12 @@ export const actions = {
             commitAddNotification(context, loadingNotification);
 
             const binanceAccountId = payload.binance_account_id;
+            const telegramId = payload.telegram_id;
             delete payload.binance_account_id;
+            delete payload.telegram_id;
 
             const response = (await Promise.all([
-                api.createCryptobot(context.state.token, payload, binanceAccountId),
+                api.createCryptobot(context.state.token, payload, binanceAccountId, telegramId),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
@@ -296,6 +300,71 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
+    // Telegrams
+    async actionGetTelegrams(context: MainContext) {
+        try {
+            const response = await api.getTelegrams(context.state.token);
+            if (response) {
+                commitSetTelegrams(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetTelegram(context: MainContext, cryptobotId: string) {
+        try {
+            const response = await api.getTelegram(context.state.token, cryptobotId);
+            if (response) {
+                commitSetTelegram(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionCreateTelegram(context: MainContext, payload) {
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.createTelegram(context.state.token, payload),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionUpdateTelegram(context: MainContext, payload) {
+        const cryptobotId = payload.id;
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.updateTelegram(context.state.token, payload, cryptobotId),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionRemoveTelegram(context: MainContext, cryptobotId: string) {
+        try {
+            const loadingNotification = { content: 'deleting', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.removeTelegram(context.state.token, cryptobotId),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            // commitRemoveTelegram(context, response.data);
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Binance account successfully deleted', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
 };
 
 const { dispatch } = getStoreAccessors<MainState | any, State>('');
@@ -325,3 +394,9 @@ export const dispatchGetBinanceAccount = dispatch(actions.actionGetBinanceAccoun
 export const dispatchCreateBinanceAccount = dispatch(actions.actionCreateBinanceAccount);
 export const dispatchUpdateBinanceAccount = dispatch(actions.actionUpdateBinanceAccount);
 export const dispatchRemoveBinanceAccount = dispatch(actions.actionRemoveBinanceAccount);
+
+export const dispatchGetTelegrams = dispatch(actions.actionGetTelegrams);
+export const dispatchGetTelegram = dispatch(actions.actionGetTelegram);
+export const dispatchCreateTelegram = dispatch(actions.actionCreateTelegram);
+export const dispatchUpdateTelegram = dispatch(actions.actionUpdateTelegram);
+export const dispatchRemoveTelegram = dispatch(actions.actionRemoveTelegram);

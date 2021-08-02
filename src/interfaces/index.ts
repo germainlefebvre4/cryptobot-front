@@ -25,6 +25,7 @@ export interface IUserProfileCreate {
 
 export interface ICryptobotCreate {
     binance_account_id: number;
+    telegram_id: number;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -46,6 +47,7 @@ export interface ICryptobotCreate {
 export interface ICryptobotUpdate {
     id?: string;
     binance_account_id: number;
+    telegram_id: number;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -68,6 +70,7 @@ export interface ICryptobot {
     id?: string;
     user_id?: string;
     binance_account_id: number;
+    telegram_id: number;
     binance_config_base_currency: string;
     binance_config_quote_currency: string;
     binance_config_granularity: string;
@@ -102,4 +105,21 @@ export interface IBinanceAccount {
     binance_api_url: string;
     binance_api_key: string;
     binance_api_secret: string;
+}
+
+export interface ITelegramCreate {
+    client_id: string;
+    token: string;
+}
+
+export interface ITelegramUpdate {
+    id?: string;
+    client_id: string;
+    token: string;
+}
+
+export interface ITelegram {
+    id?: string;
+    client_id: string;
+    token: string;
 }
