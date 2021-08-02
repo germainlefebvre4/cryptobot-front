@@ -2,7 +2,7 @@ import { mutations } from './mutations';
 import { getters } from './getters';
 import { actions } from './actions';
 import { MainState } from './state';
-import { ICryptobot, IBinanceAccount } from '@/interfaces';
+import { ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
 
 
 const defaultBinanceAccount: IBinanceAccount = {
@@ -12,10 +12,17 @@ const defaultBinanceAccount: IBinanceAccount = {
   binance_api_secret: '',
 };
 
+const defaultTelegram: ITelegram = {
+  id: '',
+  client_id: '',
+  token: '',
+};
+
 const defaultCryptobot: ICryptobot = {
   id: '',
   user_id: '',
   binance_account_id: 0,
+  telegram_id: 0,
   binance_config_base_currency: '',
   binance_config_quote_currency: '',
   binance_config_granularity: '',
@@ -46,6 +53,8 @@ const defaultState: MainState = {
   cryptobot: defaultCryptobot,
   binanceAccounts: [],
   binanceAccount: defaultBinanceAccount,
+  telegrams: [],
+  telegram: defaultTelegram,
 };
 
 export const mainModule = {

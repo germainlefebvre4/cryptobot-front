@@ -1,4 +1,4 @@
-import { IUserProfile, ICryptobot, IBinanceAccount } from '@/interfaces';
+import { IUserProfile, ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
@@ -43,6 +43,13 @@ export const mutations = {
     setBinanceAccount(state: MainState, payload: IBinanceAccount) {
         state.binanceAccount = payload;
     },
+    // Telegrams
+    setTelegrams(state: MainState, payload: ITelegram[]) {
+        state.telegrams = payload;
+    },
+    setTelegram(state: MainState, payload: ITelegram) {
+        state.telegram = payload;
+    },
 };
 
 const {commit} = getStoreAccessors<MainState | any, State>('');
@@ -61,3 +68,6 @@ export const commitSetCryptobot = commit(mutations.setCryptobot);
 
 export const commitSetBinanceAccounts = commit(mutations.setBinanceAccounts);
 export const commitSetBinanceAccount = commit(mutations.setBinanceAccount);
+
+export const commitSetTelegrams = commit(mutations.setTelegrams);
+export const commitSetTelegram = commit(mutations.setTelegram);

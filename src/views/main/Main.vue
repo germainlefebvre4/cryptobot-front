@@ -26,6 +26,28 @@
         <v-divider></v-divider>
 
         <v-list subheader>
+          <v-subheader>Telegram Channels</v-subheader>
+          <v-list-item to="/main/telegrams/view">
+            <v-list-item-action>
+              <v-icon>mdi-format-list-bulleted</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>List channels</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/telegrams/create">
+            <v-list-item-action>
+              <v-icon>mdi-pen</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Add a channel</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list subheader>
           <v-subheader>Bots</v-subheader>
           <v-list-item to="/main/cryptobots/view">
             <v-list-item-action>

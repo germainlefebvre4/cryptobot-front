@@ -124,6 +124,38 @@ export default new Router({
               ],
             },
             {
+              path: 'telegrams',
+              component: RouterComponent,
+              redirect: 'telegrams/view',
+              children: [
+                {
+                  path: 'view',
+                  component: () => import(
+                    /* webpackChunkName: "main-telegrams" */
+                    './views/main/telegrams/Telegrams.vue'),
+                },
+                {
+                  path: 'view/:id',
+                  name: 'main-telegrams-view',
+                  component: () => import(
+                    /* webpackChunkName: "main-telegrams" */
+                    './views/main/telegrams/TelegramView.vue'),
+                },
+                {
+                  path: 'create',
+                  component: () => import(
+                    /* webpackChunkName: "main-telegrams" */
+                    './views/main/telegrams/TelegramCreateOrEdit.vue'),
+                },
+                {
+                  path: 'edit/:id',
+                  name: 'main-telegrams-edit',
+                  component: () => import(
+                    /* webpackChunkName: "main-telegrams" */ './views/main/telegrams/TelegramCreateOrEdit.vue'),
+                },
+              ],
+            },
+            {
               path: 'admin',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'),
               redirect: 'admin/users/all',
