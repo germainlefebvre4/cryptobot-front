@@ -3,8 +3,8 @@ name: Deploy
 on: 
   workflow_dispatch:
     inputs:
-      version:
-        description: Release version
+      release:
+        description: Release name
         required: true
 
 jobs:
@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Deploy
+      - name: Deploy helm chart
         run: echo Deploy
