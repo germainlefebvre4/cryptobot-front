@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
-      - name: Semantic Release Config
+      - name: Application environments
         run: |
           echo '
           VUE_APP_DOMAIN_PROD=api.cryptobot.germainlefebvre.fr
