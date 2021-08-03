@@ -1,17 +1,16 @@
 name: Deploy
 
-on: 
+on:
   workflow_dispatch:
     inputs:
-      release:
-        description: Release name
+      version:
+        description: 'Release version'
         required: true
 
 jobs:
-  release:
+  say_hello:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-
-      - name: Deploy helm chart
-        run: echo Deploy
+      - run: |
+          echo "Release ${{ github.event.inputs.version }}"
