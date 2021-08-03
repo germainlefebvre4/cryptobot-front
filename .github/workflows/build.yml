@@ -53,7 +53,7 @@ jobs:
           name: germainlefebvre4/cryptobot-front
           buildargs: FRONTEND_ENV
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           tags: "${{ steps.semantic.outputs.new_release_version }}"
 
       - name: Docker Hub Description
