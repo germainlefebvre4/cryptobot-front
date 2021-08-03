@@ -38,6 +38,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+
+      - name: Semantic Release Config
+        run: |
+          echo '
+          VUE_APP_DOMAIN_PROD=api.cryptobot.germainlefebvre.fr
+          VUE_APP_NAME=Cryptobot
+          '> .env
       - name: Publish to Docker Repository
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
