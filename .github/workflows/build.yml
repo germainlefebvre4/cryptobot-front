@@ -51,7 +51,7 @@ jobs:
           FRONTEND_ENV: production
         with:
           name: germainlefebvre4/cryptobot-front
-          buildargs: KUBECTL_VERSION
+          buildargs: FRONTEND_ENV
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           tags: "${{ steps.semantic.outputs.new_release_version }}"
