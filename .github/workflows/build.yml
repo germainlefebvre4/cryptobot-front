@@ -61,7 +61,7 @@ jobs:
         with:
           repository: germainlefebvre4/cryptobot-front
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD2 }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
           readme-filepath: ./docs/dockerhub/README.md
 
       - name: Workflow Dispatch
