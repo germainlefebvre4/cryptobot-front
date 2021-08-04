@@ -150,10 +150,6 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-    <v-footer class="pa-3" fixed app>
-      <v-spacer></v-spacer>
-      <span>&copy; {{appName}}</span>
-    </v-footer>
   </div>
 </template>
 
