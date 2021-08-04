@@ -49,10 +49,22 @@
               </v-row>
             </v-container>
 
+        <v-tabs vertical>
+          <v-tab>
+            <v-icon left>
+              mdi-access-point
+            </v-icon>
+            Basic config
+          </v-tab>
+          <v-tab>
+            <v-icon left>
+              mdi-access-point
+            </v-icon>
+            Advanced config
+          </v-tab>
+
+          <v-tab-item>
             <v-container>
-              <v-row>
-                <v-subheader>Config</v-subheader>
-              </v-row>
               <v-row>
                 <v-layout wrap fill-height>
                   <v-flex grow>
@@ -96,6 +108,96 @@
                 </v-layout>
               </v-row>
             </v-container>
+          </v-tab-item>
+          <v-tab-item>
+            <v-container>
+              <v-row>
+                <v-subheader>Advanced config</v-subheader>
+              </v-row>
+              <v-row>
+                <v-layout wrap fill-height>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable bull only"
+                      v-model="binanceConfigDisablebullonly"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable buy near high"
+                      v-model="binanceConfigDisablebuynearhigh"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable buy MACD"
+                      v-model="binanceConfigDisablebuymacd"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable buy EMA"
+                      v-model="binanceConfigDisablebuyema"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable buy OBV"
+                      v-model="binanceConfigDisablebuyobv"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable buy Elderray"
+                      v-model="binanceConfigDisablebuyelderray"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable fail safe Fibanacci low"
+                      v-model="binanceConfigDisablefailsafefibonaccilow"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable fail safe lower percent"
+                      v-model="binanceConfigDisablefailsafelowerpcnt"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable profit bank upper percent"
+                      v-model="binanceConfigDisableprofitbankupperpcnt"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable profit bank Fibonacci high"
+                      v-model="binanceConfigDisableprofitbankfibonaccihigh"
+                      inset
+                    />
+                  </v-flex>
+                  <v-flex grow>
+                    <v-switch
+                      label="Disable profit bank reversal"
+                      v-model="binanceConfigDisableprofitbankreversal"
+                      inset
+                    />
+                  </v-flex>
+                </v-layout>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+        </v-tabs>
 
             <v-container>
               <v-row>
@@ -182,6 +284,17 @@ export default class CryptobotCreateOrEdit extends Vue {
   public binanceConfigBuymaxsize: number | null = null;
   public binanceConfigSellupperpcnt: number = 5;
   public binanceConfigSelllowerpcnt: number = -5;
+  public binanceConfigDisablebullonly: boolean = false;
+  public binanceConfigDisablebuynearhigh: boolean = false;
+  public binanceConfigDisablebuymacd: boolean = false;
+  public binanceConfigDisablebuyema: boolean = false;
+  public binanceConfigDisablebuyobv: boolean = false;
+  public binanceConfigDisablebuyelderray: boolean = false;
+  public binanceConfigDisablefailsafefibonaccilow: boolean = false;
+  public binanceConfigDisablefailsafelowerpcnt: boolean = false;
+  public binanceConfigDisableprofitbankupperpcnt: boolean = false;
+  public binanceConfigDisableprofitbankfibonaccihigh: boolean = false;
+  public binanceConfigDisableprofitbankreversal: boolean = false;
   public loggerFilelog: boolean = false;
   public loggerLogfile: string = 'pycryptobot.log';
   public loggerFileloglevel: string = 'DEBUG';
@@ -282,6 +395,17 @@ export default class CryptobotCreateOrEdit extends Vue {
           binance_config_buymaxsize: this.binanceConfigBuymaxsize || 0,
           binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
           binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
+          binance_config_disablebullonly: this.binanceConfigDisablebullonly,
+          binance_config_disablebuynearhigh: this.binanceConfigDisablebuynearhigh,
+          binance_config_disablebuymacd: this.binanceConfigDisablebuymacd,
+          binance_config_disablebuyema: this.binanceConfigDisablebuyema,
+          binance_config_disablebuyobv: this.binanceConfigDisablebuyobv,
+          binance_config_disablebuyelderray: this.binanceConfigDisablebuyelderray,
+          binance_config_disablefailsafefibonaccilow: this.binanceConfigDisablefailsafefibonaccilow,
+          binance_config_disablefailsafelowerpcnt: this.binanceConfigDisablefailsafelowerpcnt,
+          binance_config_disableprofitbankupperpcnt: this.binanceConfigDisableprofitbankupperpcnt,
+          binance_config_disableprofitbankfibonaccihigh: this.binanceConfigDisableprofitbankfibonaccihigh,
+          binance_config_disableprofitbankreversal: this.binanceConfigDisableprofitbankreversal,
           logger_filelog: this.loggerFilelog,
           logger_logfile: this.loggerLogfile,
           logger_fileloglevel: this.loggerFileloglevel,
@@ -304,6 +428,17 @@ export default class CryptobotCreateOrEdit extends Vue {
           binance_config_buymaxsize: this.binanceConfigBuymaxsize || 0,
           binance_config_sellupperpcnt: this.binanceConfigSellupperpcnt,
           binance_config_selllowerpcnt: this.binanceConfigSelllowerpcnt,
+          binance_config_disablebullonly: this.binanceConfigDisablebullonly,
+          binance_config_disablebuynearhigh: this.binanceConfigDisablebuynearhigh,
+          binance_config_disablebuymacd: this.binanceConfigDisablebuymacd,
+          binance_config_disablebuyema: this.binanceConfigDisablebuyema,
+          binance_config_disablebuyobv: this.binanceConfigDisablebuyobv,
+          binance_config_disablebuyelderray: this.binanceConfigDisablebuyelderray,
+          binance_config_disablefailsafefibonaccilow: this.binanceConfigDisablefailsafefibonaccilow,
+          binance_config_disablefailsafelowerpcnt: this.binanceConfigDisablefailsafelowerpcnt,
+          binance_config_disableprofitbankupperpcnt: this.binanceConfigDisablebullonly,
+          binance_config_disableprofitbankfibonaccihigh: this.binanceConfigDisablebullonly,
+          binance_config_disableprofitbankreversal: this.binanceConfigDisableprofitbankreversal,
           logger_filelog: this.loggerFilelog,
           logger_logfile: this.loggerLogfile,
           logger_fileloglevel: this.loggerFileloglevel,
@@ -333,6 +468,17 @@ export default class CryptobotCreateOrEdit extends Vue {
     this.binanceConfigBuymaxsize = cryptobot.binance_config_buymaxsize || 0;
     this.binanceConfigSellupperpcnt = cryptobot.binance_config_sellupperpcnt || 0;
     this.binanceConfigSelllowerpcnt = cryptobot.binance_config_selllowerpcnt || 0;
+    this.binanceConfigDisablebullonly = cryptobot.binance_config_disablebullonly || false;
+    this.binanceConfigDisablebuynearhigh = cryptobot.binance_config_disablebuynearhigh || false;
+    this.binanceConfigDisablebuymacd = cryptobot.binance_config_disablebuymacd || false;
+    this.binanceConfigDisablebuyema = cryptobot.binance_config_disablebuyema || false;
+    this.binanceConfigDisablebuyobv = cryptobot.binance_config_disablebuyobv || false;
+    this.binanceConfigDisablebuyelderray = cryptobot.binance_config_disablebuyelderray || false;
+    this.binanceConfigDisablefailsafefibonaccilow = cryptobot.binance_config_disablefailsafefibonaccilow || false;
+    this.binanceConfigDisablefailsafelowerpcnt = cryptobot.binance_config_disablefailsafelowerpcnt || false;
+    this.binanceConfigDisableprofitbankupperpcnt = cryptobot.binance_config_disableprofitbankupperpcnt || false;
+    this.binanceConfigDisableprofitbankfibonaccihigh = cryptobot.binance_config_disableprofitbankfibonaccihigh || false;
+    this.binanceConfigDisableprofitbankreversal = cryptobot.binance_config_disableprofitbankreversal || false;
     this.loggerFilelog = cryptobot.logger_filelog || false;
     this.loggerLogfile = cryptobot.logger_logfile || 'pycryptobot.log';
     this.loggerFileloglevel = cryptobot.logger_fileloglevel || 'DEBUG';

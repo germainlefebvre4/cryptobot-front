@@ -207,9 +207,6 @@ export const actions = {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
 
-            const binanceAccountId = payload.binance_account_id;
-            delete payload.binance_account_id;
-
             const response = (await Promise.all([
                 api.updateCryptobot(context.state.token, payload, cryptobotId),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
