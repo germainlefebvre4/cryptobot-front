@@ -90,7 +90,7 @@
                 <v-layout wrap fill-height>
                   <v-flex grow>
                     <v-text-field
-                      label="Buy upper  percent"
+                      label="Sell upper percent"
                       v-model="binanceConfigSellupperpcnt"
                       :rules="validateConfigSellupperpcnt"
                     />
