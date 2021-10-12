@@ -80,13 +80,13 @@ export const api = {
   },
   
   async getCryptobotStatus(token: string, cryptobotId: string) {
-    return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/status`, authHeaders(token));
+    return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/status`, authHeaders(token));
   },
   async getCryptobotLogs(token: string, cryptobotId: string) {
-    return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/logs`, authHeaders(token));
+    return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/logs`, authHeaders(token));
   },
   async getCryptobotVersion(token: string, cryptobotId: string) {
-    return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/version`, authHeaders(token));
+    return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/version`, authHeaders(token));
   },
 
   // Binance Accounts
