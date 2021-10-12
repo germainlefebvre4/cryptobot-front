@@ -1,5 +1,5 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM node:14
+FROM node:14 as build-stage
 
 ARG FRONTEND_ENV
 ENV VUE_APP_ENV=${FRONTEND_ENV}
