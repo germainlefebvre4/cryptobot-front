@@ -21,6 +21,9 @@ export const getters = {
     binanceAccount: (state: MainState) => state.binanceAccount,
     telegrams: (state: MainState) => state.telegrams,
     telegram: (state: MainState) => state.telegram,
+    cryptobotStatus: (state: MainState) => state.cryptobotStatus,
+    cryptobotLogs: (state: MainState) => state.cryptobotLogs,
+    cryptobotVersion: (state: MainState) => state.cryptobotVersion,
 };
 
 const {read} = getStoreAccessors<MainState, State>('');
@@ -35,6 +38,9 @@ export const readUserProfile = read(getters.userProfile);
 export const readFirstNotification = read(getters.firstNotification);
 export const readCryptobots = read(getters.cryptobots);
 export const readCryptobot = read(getters.cryptobot);
+export const readCryptobotStatus = read(getters.cryptobotStatus);
+export const readCryptobotLogs = read(getters.cryptobotLogs);
+export const readCryptobotVersion = read(getters.cryptobotVersion);
 export const readBinanceAccounts = read(getters.binanceAccounts);
 export const readBinanceAccount = read(getters.binanceAccount);
 export const readTelegrams = read(getters.telegrams);

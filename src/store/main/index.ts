@@ -2,7 +2,7 @@ import { mutations } from './mutations';
 import { getters } from './getters';
 import { actions } from './actions';
 import { MainState } from './state';
-import { ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
+import { ICryptobot, IBinanceAccount, ITelegram, ICryptobotInfo } from '@/interfaces';
 
 
 const defaultBinanceAccount: IBinanceAccount = {
@@ -52,6 +52,13 @@ const defaultCryptobot: ICryptobot = {
   telegram_token: '',
 };
 
+const defaultCryptobotInfo: ICryptobotInfo = {
+  status: '',
+  logs: '',
+  version: ''
+}
+
+
 const defaultState: MainState = {
   isLoggedIn: null,
   token: '',
@@ -66,6 +73,9 @@ const defaultState: MainState = {
   binanceAccount: defaultBinanceAccount,
   telegrams: [],
   telegram: defaultTelegram,
+  cryptobotStatus: '',
+  cryptobotLogs: '',
+  cryptobotVersion: '',
 };
 
 export const mainModule = {

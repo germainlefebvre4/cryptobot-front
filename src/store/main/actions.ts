@@ -18,6 +18,9 @@ import {
     commitSetBinanceAccount,
     commitSetTelegrams,
     commitSetTelegram,
+    commitSetCryptobotStatus,
+    commitSetCryptobotLogs,
+    commitSetCryptobotVersion,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -232,6 +235,54 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
+    // Cryptobot Info
+
+    async actionGetCryptobotStatus(context: MainContext, payload) {
+        try {
+            // const loadingNotification = { content: 'saving', showProgress: true };
+            // commitAddNotification(context, loadingNotification);
+
+            const response = await api.getCryptobotStatus(context.state.token, payload);
+            if (response) {
+                commitSetCryptobotStatus(context, response.data);
+            }
+            // commitRemoveNotification(context, loadingNotification);
+            // commitAddNotification(context, { content: 'Cryptobot status updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetCryptobotLogs(context: MainContext, payload) {
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+
+            const response = await api.getCryptobotLogs(context.state.token, payload);
+            if (response) {
+                commitSetCryptobotLogs(context, response.data);
+            }
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Cryptobot logs updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetCryptobotVersion(context: MainContext, payload) {
+        try {
+            // const loadingNotification = { content: 'saving', showProgress: true };
+            // commitAddNotification(context, loadingNotification);
+
+            const response = await api.getCryptobotVersion(context.state.token, payload);
+            if (response) {
+                commitSetCryptobotVersion(context, response.data);
+            }
+            // commitRemoveNotification(context, loadingNotification);
+            // commitAddNotification(context, { content: 'Cryptobot version updated', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+
     // Binance Accounts
     async actionGetBinanceAccounts(context: MainContext) {
         try {
@@ -362,6 +413,7 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
+
 };
 
 const { dispatch } = getStoreAccessors<MainState | any, State>('');
@@ -386,6 +438,10 @@ export const dispatchCreateCryptobot = dispatch(actions.actionCreateCryptobot);
 export const dispatchUpdateCryptobot = dispatch(actions.actionUpdateCryptobot);
 export const dispatchRemoveCryptobot = dispatch(actions.actionRemoveCryptobot);
 
+export const dispatchGetCryptobotStatus = dispatch(actions.actionGetCryptobotStatus);
+export const dispatchGetCryptobotLogs = dispatch(actions.actionGetCryptobotLogs);
+export const dispatchGetCryptobotVersion = dispatch(actions.actionGetCryptobotVersion);
+
 export const dispatchGetBinanceAccounts = dispatch(actions.actionGetBinanceAccounts);
 export const dispatchGetBinanceAccount = dispatch(actions.actionGetBinanceAccount);
 export const dispatchCreateBinanceAccount = dispatch(actions.actionCreateBinanceAccount);
@@ -397,3 +453,4 @@ export const dispatchGetTelegram = dispatch(actions.actionGetTelegram);
 export const dispatchCreateTelegram = dispatch(actions.actionCreateTelegram);
 export const dispatchUpdateTelegram = dispatch(actions.actionUpdateTelegram);
 export const dispatchRemoveTelegram = dispatch(actions.actionRemoveTelegram);
+

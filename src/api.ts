@@ -78,6 +78,16 @@ export const api = {
   async removeCryptobot(token: string, cryptobotId: string) {
     return axios.delete(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
+  
+  async getCryptobotStatus(token: string, cryptobotId: string) {
+    return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/status`, authHeaders(token));
+  },
+  async getCryptobotLogs(token: string, cryptobotId: string) {
+    return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/logs`, authHeaders(token));
+  },
+  async getCryptobotVersion(token: string, cryptobotId: string) {
+    return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/version`, authHeaders(token));
+  },
 
   // Binance Accounts
   async getBinanceAccounts(token: string) {

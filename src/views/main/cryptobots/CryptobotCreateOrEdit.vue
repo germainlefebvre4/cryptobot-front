@@ -116,77 +116,77 @@
               </v-row>
               <v-row>
                 <v-layout wrap fill-height>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable bull only"
                       v-model="binanceConfigDisablebullonly"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable buy near high"
                       v-model="binanceConfigDisablebuynearhigh"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable buy MACD"
                       v-model="binanceConfigDisablebuymacd"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable buy EMA"
                       v-model="binanceConfigDisablebuyema"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable buy OBV"
                       v-model="binanceConfigDisablebuyobv"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable buy Elderray"
                       v-model="binanceConfigDisablebuyelderray"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable fail safe Fibanacci low"
                       v-model="binanceConfigDisablefailsafefibonaccilow"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable fail safe lower percent"
                       v-model="binanceConfigDisablefailsafelowerpcnt"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable profit bank upper percent"
                       v-model="binanceConfigDisableprofitbankupperpcnt"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable profit bank Fibonacci high"
                       v-model="binanceConfigDisableprofitbankfibonaccihigh"
                       inset
                     />
                   </v-flex>
-                  <v-flex grow>
+                  <v-flex grow ps-1>
                     <v-switch
                       label="Disable profit bank reversal"
                       v-model="binanceConfigDisableprofitbankreversal"
@@ -354,8 +354,8 @@ export default class CryptobotCreateOrEdit extends Vue {
       await dispatchGetCryptobot(this.$store, this.cryptobotId);
       this.setFormValues();
     }
-    await dispatchGetBinanceAccounts(this.$store);
-    await dispatchGetTelegrams(this.$store);
+    dispatchGetBinanceAccounts(this.$store);
+    dispatchGetTelegrams(this.$store);
 
   }
 
