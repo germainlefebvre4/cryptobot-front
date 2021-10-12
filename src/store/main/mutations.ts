@@ -36,6 +36,16 @@ export const mutations = {
     setCryptobot(state: MainState, payload: ICryptobot) {
         state.cryptobot = payload;
     },
+    // Cryptobot Info
+    setCryptobotStatus(state: MainState, payload: string) {
+        state.cryptobotStatus = payload;
+    },
+    setCryptobotLogs(state: MainState, payload: string) {
+        state.cryptobotLogs = payload;
+    },
+    setCryptobotVersion(state: MainState, payload: string) {
+        state.cryptobotVersion = payload;
+    },
     // Binance Accounts
     setBinanceAccounts(state: MainState, payload: IBinanceAccount[]) {
         state.binanceAccounts = payload;
@@ -66,8 +76,13 @@ export const commitRemoveNotification = commit(mutations.removeNotification);
 export const commitSetCryptobots = commit(mutations.setCryptobots);
 export const commitSetCryptobot = commit(mutations.setCryptobot);
 
+export const commitSetCryptobotStatus = commit(mutations.setCryptobotStatus);
+export const commitSetCryptobotLogs = commit(mutations.setCryptobotLogs);
+export const commitSetCryptobotVersion = commit(mutations.setCryptobotVersion);
+
 export const commitSetBinanceAccounts = commit(mutations.setBinanceAccounts);
 export const commitSetBinanceAccount = commit(mutations.setBinanceAccount);
 
 export const commitSetTelegrams = commit(mutations.setTelegrams);
 export const commitSetTelegram = commit(mutations.setTelegram);
+

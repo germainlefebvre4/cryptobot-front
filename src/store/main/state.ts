@@ -20,4 +20,7 @@ export interface MainState {
     binanceAccount: IBinanceAccount;
     telegrams: ITelegram[];
     telegram: ITelegram;
+    cryptobotStatus: string;
+    cryptobotLogs: string;
+    cryptobotVersion: string;
 }

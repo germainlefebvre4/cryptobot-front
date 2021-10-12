@@ -52,6 +52,7 @@ const defaultCryptobot: ICryptobot = {
   telegram_token: '',
 };
 
+
 const defaultState: MainState = {
   isLoggedIn: null,
   token: '',
@@ -66,6 +67,9 @@ const defaultState: MainState = {
   binanceAccount: defaultBinanceAccount,
   telegrams: [],
   telegram: defaultTelegram,
+  cryptobotStatus: '',
+  cryptobotLogs: '',
+  cryptobotVersion: '',
 };
 
 export const mainModule = {
