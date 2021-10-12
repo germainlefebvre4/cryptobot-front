@@ -1,4 +1,4 @@
-import { IUserProfile, ICryptobot, IBinanceAccount, ITelegram, ICryptobotInfo } from '@/interfaces';
+import { IUserProfile, ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
 
 export interface AppNotification {
     content: string;

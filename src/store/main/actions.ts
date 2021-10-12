@@ -239,15 +239,10 @@ export const actions = {
 
     async actionGetCryptobotStatus(context: MainContext, payload) {
         try {
-            // const loadingNotification = { content: 'saving', showProgress: true };
-            // commitAddNotification(context, loadingNotification);
-
             const response = await api.getCryptobotStatus(context.state.token, payload);
             if (response) {
                 commitSetCryptobotStatus(context, response.data);
             }
-            // commitRemoveNotification(context, loadingNotification);
-            // commitAddNotification(context, { content: 'Cryptobot status updated', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
@@ -269,15 +264,10 @@ export const actions = {
     },
     async actionGetCryptobotVersion(context: MainContext, payload) {
         try {
-            // const loadingNotification = { content: 'saving', showProgress: true };
-            // commitAddNotification(context, loadingNotification);
-
             const response = await api.getCryptobotVersion(context.state.token, payload);
             if (response) {
                 commitSetCryptobotVersion(context, response.data);
             }
-            // commitRemoveNotification(context, loadingNotification);
-            // commitAddNotification(context, { content: 'Cryptobot version updated', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }

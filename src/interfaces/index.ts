@@ -122,12 +122,6 @@ export interface ICryptobot {
     telegram_token: string;
 }
 
-export interface ICryptobotInfo {
-    status: string;
-    logs: string;
-    version: string;
-}
-
 export interface IBinanceAccountCreate {
     binance_api_key: string;
     binance_api_secret: string;
