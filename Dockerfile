@@ -1,9 +1,13 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
 <<<<<<< HEAD
+<<<<<<< HEAD
 FROM node:14 as build-stage
 =======
 FROM node:14
 >>>>>>> fix(Docker): Upgrade node version to 14
+=======
+FROM node:14 as build-stage
+>>>>>>> fix(Docker): Fix node stage name
 
 ARG FRONTEND_ENV
 ENV VUE_APP_ENV=${FRONTEND_ENV}
