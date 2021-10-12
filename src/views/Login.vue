@@ -32,6 +32,11 @@
               </v-btn>
             </v-layout>
           </v-container>
+          <v-container fluid>
+            <v-layout column align-center justify-center>
+              version 0.1.0
+            </v-layout>
+          </v-container>
         </v-flex>
       </v-layout>
     </v-container>
