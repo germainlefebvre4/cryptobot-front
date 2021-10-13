@@ -78,7 +78,7 @@ export const api = {
   async removeCryptobot(token: string, cryptobotId: string) {
     return axios.delete(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
-  
+
   async getCryptobotStatus(token: string, cryptobotId: string) {
     return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/status`, authHeaders(token));
   },

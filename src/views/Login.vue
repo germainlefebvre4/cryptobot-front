@@ -33,8 +33,8 @@
             </v-layout>
           </v-container>
           <v-container fluid>
-            <v-layout column align-center justify-center>
-              version 0.1.0
+            <v-layout align-center justify-center text-caption>
+              v{{ appVersion }}
             </v-layout>
           </v-container>
         </v-flex>
@@ -50,11 +50,13 @@ import { appName } from '@/env';
 import { readLoginError } from '@/store/main/getters';
 import { dispatchLogIn } from '@/store/main/actions';
 
+
 @Component
 export default class Login extends Vue {
   public email: string = '';
   public password: string = '';
   public appName = appName;
+  public appVersion: string = JSON.stringify(require('../../package.json').version).replace(/['"]+/g, '') || '0.0.0';
 
   public get loginError() {
     return readLoginError(this.$store);
