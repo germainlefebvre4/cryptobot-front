@@ -111,9 +111,10 @@ export default class CryptobotCreateOrEdit extends Vue {
   public telegramClientId: string = '';
   public telegramToken: string = '';
 
-  private editMode = false;
   public cryptobotStatusColor = '';
   public cryptobotStatusIcon = '';
+
+  private editMode = false;
 
   public async mounted() {
     const userProfile = readUserProfile(this.$store);

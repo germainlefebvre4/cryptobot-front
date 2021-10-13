@@ -3,6 +3,12 @@
     <v-navigation-drawer persistent :mini-variant="miniDrawer" v-model="showDrawer" fixed app>
       <v-layout column fill-height>
 
+        <v-container fluid>
+          <v-layout align-center justify-center text-caption>
+            v{{ appVersion }}
+          </v-layout>
+        </v-container>
+
         <v-list subheader>
           <v-subheader>Binance Accounts</v-subheader>
           <v-list-item to="/main/binance/accounts/view">
@@ -174,6 +180,7 @@ const routeGuardMain = async (to, from, next) => {
 export default class Main extends Vue {
   public appName = appName;
   public avatarSize = 0;
+  public appVersion: string = JSON.stringify(require('../../../package.json').version).replace(/['"]+/g, '') || '0.0.0';
 
   public beforeRouteEnter(to, from, next) {
     routeGuardMain(to, from, next);
