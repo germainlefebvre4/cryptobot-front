@@ -76,7 +76,7 @@ export default class Cryptobots extends Vue {
     sortDesc: true,
   };
   public paginationFooter = {
-    itemsPerPageOptions: [10, 25, 50, { text: 'Tous', value: -1 }],
+    itemsPerPageOptions: [20, 50, { text: 'Tous', value: -1 }],
   };
   public headers = [
     {

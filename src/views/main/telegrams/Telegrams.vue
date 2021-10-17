@@ -123,7 +123,9 @@ export default class Telegrams extends Vue {
 </script>
 
 <style scoped>
+/* 
 .container {
   max-width: 960px;
 }
+ */
 </style>
