@@ -21,6 +21,8 @@ import {
     commitSetCryptobotStatus,
     commitSetCryptobotLogs,
     commitSetCryptobotVersion,
+    commitSetCryptobotMarginTradesCurrentLast,
+    commitSetCryptobotMarginTradesCurrentRun,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -235,8 +237,8 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
-    // Cryptobot Info
 
+    // Cryptobot Info
     async actionGetCryptobotStatus(context: MainContext, payload) {
         try {
             const response = await api.getCryptobotStatus(context.state.token, payload);
@@ -249,15 +251,10 @@ export const actions = {
     },
     async actionGetCryptobotLogs(context: MainContext, payload) {
         try {
-            const loadingNotification = { content: 'saving', showProgress: true };
-            commitAddNotification(context, loadingNotification);
-
             const response = await api.getCryptobotLogs(context.state.token, payload);
             if (response) {
                 commitSetCryptobotLogs(context, response.data);
             }
-            commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Cryptobot logs updated', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
@@ -267,6 +264,28 @@ export const actions = {
             const response = await api.getCryptobotVersion(context.state.token, payload);
             if (response) {
                 commitSetCryptobotVersion(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+
+    // Cryptobot Margin
+    async actionGetCryptobotMarginTradesCurrentLast(context: MainContext, payload) {
+        try {
+            const response = await api.getCryptobotMarginTradesCurrentLast(context.state.token, payload);
+            if (response) {
+                commitSetCryptobotMarginTradesCurrentLast(context, payload);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetCryptobotMarginTradesCurrentRun(context: MainContext, payload) {
+        try {
+            const response = await api.getCryptobotMarginTradesCurrentRun(context.state.token, payload);
+            if (response) {
+                commitSetCryptobotMarginTradesCurrentRun(context, payload);
             }
         } catch (error) {
             await dispatchCheckApiError(context, error);
@@ -432,6 +451,9 @@ export const dispatchGetCryptobotStatus = dispatch(actions.actionGetCryptobotSta
 export const dispatchGetCryptobotLogs = dispatch(actions.actionGetCryptobotLogs);
 export const dispatchGetCryptobotVersion = dispatch(actions.actionGetCryptobotVersion);
 
+export const dispatchGetCryptobotMarginTradesCurrentLast = dispatch(actions.actionGetCryptobotMarginTradesCurrentLast);
+export const dispatchGetCryptobotMarginTradesCurrentRun = dispatch(actions.actionGetCryptobotMarginTradesCurrentRun);
+
 export const dispatchGetBinanceAccounts = dispatch(actions.actionGetBinanceAccounts);
 export const dispatchGetBinanceAccount = dispatch(actions.actionGetBinanceAccount);
 export const dispatchCreateBinanceAccount = dispatch(actions.actionCreateBinanceAccount);
@@ -443,4 +465,3 @@ export const dispatchGetTelegram = dispatch(actions.actionGetTelegram);
 export const dispatchCreateTelegram = dispatch(actions.actionCreateTelegram);
 export const dispatchUpdateTelegram = dispatch(actions.actionUpdateTelegram);
 export const dispatchRemoveTelegram = dispatch(actions.actionRemoveTelegram);
-

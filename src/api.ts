@@ -79,6 +79,7 @@ export const api = {
     return axios.delete(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
 
+  // Cryptobot infos
   async getCryptobotStatus(token: string, cryptobotId: string) {
     return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/status`, authHeaders(token));
   },
@@ -87,6 +88,20 @@ export const api = {
   },
   async getCryptobotVersion(token: string, cryptobotId: string) {
     return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/version`, authHeaders(token));
+  },
+
+  // Cryptobot margin
+  async getCryptobotMarginTradesCurrentLast(token: string, cryptobotId: string) {
+    return axios.get<string>(
+        `${apiUrl}/api/v1/cryptobots/${cryptobotId}/margin/trades/current/last`,
+        authHeaders(token),
+    );
+  },
+  async getCryptobotMarginTradesCurrentRun(token: string, cryptobotId: string) {
+    return axios.get<string>(
+        `${apiUrl}/api/v1/cryptobots/${cryptobotId}/margin/trades/current/run`,
+        authHeaders(token),
+    );
   },
 
   // Binance Accounts

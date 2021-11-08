@@ -129,6 +129,14 @@
       <v-app-bar-nav-icon @click.stop="switchShowDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title v-text="appName"></v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-btn
+        icon
+        class="my-5 btn btn-outline-success"
+        @click="navigationBack()"
+      >
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
       <v-menu bottom left offset-y>
         <v-btn slot:activator="{ on }" icon>
           <v-icon>more_vert</v-icon>
@@ -237,6 +245,15 @@ export default class Main extends Vue {
   public created() {
     const userProfile = readUserProfile(this.$store);
     this.avatarSize = 60;
+  }
+
+  public navigationBack() {
+    console.log(window.history.length);
+    if (window.history.length > 2) {
+      this.$router.go(-1);
+    } else {
+      this.$router.push('/');
+    }
   }
 
   get userProfile() {
