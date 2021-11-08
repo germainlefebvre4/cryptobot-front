@@ -156,3 +156,19 @@ export interface ITelegram {
     client_id: string;
     token: string;
 }
+
+export interface IMarginValue {
+    value: number;
+    unit: string;
+}
+
+export interface ICryptobotMarginTradesCurrentLast {
+    base_currency: IMarginValue;
+    quote_currency: IMarginValue;
+    percent: number;
+}
+
+export interface ICryptobotMarginTradesCurrentRun {
+    value: number;
+    unit: string;
+}

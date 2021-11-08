@@ -1,4 +1,11 @@
-import { IUserProfile, ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
+import {
+    IUserProfile,
+    ICryptobot,
+    IBinanceAccount,
+    ITelegram,
+    ICryptobotMarginTradesCurrentLast,
+    ICryptobotMarginTradesCurrentRun,
+} from '@/interfaces';
 
 export interface AppNotification {
     content: string;
@@ -23,4 +30,6 @@ export interface MainState {
     cryptobotStatus: string;
     cryptobotLogs: string;
     cryptobotVersion: string;
+    cryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast;
+    cryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentRun;
 }

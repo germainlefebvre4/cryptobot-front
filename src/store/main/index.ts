@@ -2,7 +2,13 @@ import { mutations } from './mutations';
 import { getters } from './getters';
 import { actions } from './actions';
 import { MainState } from './state';
-import { ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
+import {
+    ICryptobot,
+    IBinanceAccount,
+    ITelegram,
+    ICryptobotMarginTradesCurrentLast,
+    ICryptobotMarginTradesCurrentRun,
+} from '@/interfaces';
 
 
 const defaultBinanceAccount: IBinanceAccount = {
@@ -52,6 +58,22 @@ const defaultCryptobot: ICryptobot = {
   telegram_token: '',
 };
 
+const defaultMarginValue = {
+  value: 0,
+  unit: '',
+};
+
+const defaultCryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast = {
+  base_currency: defaultMarginValue,
+  quote_currency: defaultMarginValue,
+  percent: 0,
+};
+
+const defaultCryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentRun = {
+  value: 0,
+  unit: '',
+};
+
 
 const defaultState: MainState = {
   isLoggedIn: null,
@@ -70,6 +92,8 @@ const defaultState: MainState = {
   cryptobotStatus: '',
   cryptobotLogs: '',
   cryptobotVersion: '',
+  cryptobotMarginTradesCurrentLast: defaultCryptobotMarginTradesCurrentLast,
+  cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentRun,
 };
 
 export const mainModule = {

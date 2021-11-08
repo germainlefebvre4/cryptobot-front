@@ -46,6 +46,28 @@
               <div class="headline">
                 <v-icon>mdi-chart-line</v-icon>
                 <span class="headline">
+                  Margin
+                </span>
+              </div>
+            </v-card-title>
+            <v-card-text>
+              <v-container >
+                <v-row>
+                    Current trade: {{ cryptobotMarginTradesCurrentLast.percent }}%
+                </v-row>
+                <v-row>
+                    Current run: {{ cryptobotMarginTradesCurrentRun.value }} {{ cryptobotMarginTradesCurrentRun.unit }}
+                </v-row>
+              </v-container>
+            </v-card-text>
+          </v-card>
+
+
+          <v-card style="margin-top: 15px;" outlined color="transparent">
+            <v-card-title>
+              <div class="headline">
+                <v-icon>mdi-chart-line</v-icon>
+                <span class="headline">
                   Status
                 </span>
               </div>
@@ -80,7 +102,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Store } from 'vuex';
 import { ICryptobot } from '@/interfaces';
-import { readUserProfile, readCryptobot, readCryptobotStatus, readCryptobotVersion, readCryptobotLogs } from '@/store/main/getters';
+import {
+    readUserProfile,
+    readCryptobot, readCryptobotStatus, readCryptobotVersion, readCryptobotLogs,
+    readCryptobotMarginTradesCurrentLast, readCryptobotMarginTradesCurrentRun,
+} from '@/store/main/getters';
 import { dispatchGetCryptobot, dispatchGetCryptobotLogs, dispatchGetCryptobotStatus, dispatchGetCryptobotVersion } from '@/store/main/actions';
 import { Dictionary } from 'vue-router/types/router';
 
@@ -167,6 +193,14 @@ export default class CryptobotCreateOrEdit extends Vue {
 
   get cryptobotVersion() {
     return readCryptobotVersion(this.$store);
+  }
+
+  get cryptobotMarginTradesCurrentLast() {
+    return readCryptobotMarginTradesCurrentLast(this.$store);
+  }
+
+  get cryptobotMarginTradesCurrentRun() {
+    return readCryptobotMarginTradesCurrentRun(this.$store);
   }
 
 }

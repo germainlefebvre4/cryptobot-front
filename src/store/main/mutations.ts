@@ -1,4 +1,11 @@
-import { IUserProfile, ICryptobot, IBinanceAccount, ITelegram } from '@/interfaces';
+import {
+    IUserProfile,
+    ICryptobot,
+    IBinanceAccount,
+    ITelegram,
+    ICryptobotMarginTradesCurrentLast,
+    ICryptobotMarginTradesCurrentRun,
+} from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
@@ -46,6 +53,13 @@ export const mutations = {
     setCryptobotVersion(state: MainState, payload: string) {
         state.cryptobotVersion = payload;
     },
+    // Cryptobot Margin
+    setCryptobotMarginTradesCurrentLast(state: MainState, payload: ICryptobotMarginTradesCurrentLast) {
+        state.cryptobotMarginTradesCurrentLast = payload;
+    },
+    setCryptobotMarginTradesCurrentRun(state: MainState, payload: ICryptobotMarginTradesCurrentRun) {
+        state.cryptobotMarginTradesCurrentRun = payload;
+    },
     // Binance Accounts
     setBinanceAccounts(state: MainState, payload: IBinanceAccount[]) {
         state.binanceAccounts = payload;
@@ -79,6 +93,9 @@ export const commitSetCryptobot = commit(mutations.setCryptobot);
 export const commitSetCryptobotStatus = commit(mutations.setCryptobotStatus);
 export const commitSetCryptobotLogs = commit(mutations.setCryptobotLogs);
 export const commitSetCryptobotVersion = commit(mutations.setCryptobotVersion);
+
+export const commitSetCryptobotMarginTradesCurrentLast = commit(mutations.setCryptobotMarginTradesCurrentLast);
+export const commitSetCryptobotMarginTradesCurrentRun = commit(mutations.setCryptobotMarginTradesCurrentRun);
 
 export const commitSetBinanceAccounts = commit(mutations.setBinanceAccounts);
 export const commitSetBinanceAccount = commit(mutations.setBinanceAccount);
