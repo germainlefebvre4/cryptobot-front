@@ -45,6 +45,9 @@ jobs:
           VUE_APP_DOMAIN_PROD=api.cryptobot.germainlefebvre.fr
           VUE_APP_NAME=Cryptobot
           '> .env
+      - name: Update package.json version
+        run: |
+          sed -i 's/\(^ *"version": \).*/\1${{ steps.semantic.outputs.new_release_version }},/g' package.json
       - name: Publish to Docker Repository
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
