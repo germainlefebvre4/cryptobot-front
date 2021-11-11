@@ -56,6 +56,8 @@ export const mutations = {
     // Cryptobot Margin
     setCryptobotMarginTradesCurrentLast(state: MainState, payload: ICryptobotMarginTradesCurrentLast) {
         state.cryptobotMarginTradesCurrentLast = payload;
+        console.log(payload)
+        console.log(state.cryptobotMarginTradesCurrentLast);
     },
     setCryptobotMarginTradesCurrentRun(state: MainState, payload: ICryptobotMarginTradesCurrentRun) {
         state.cryptobotMarginTradesCurrentRun = payload;

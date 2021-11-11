@@ -271,21 +271,22 @@ export const actions = {
     },
 
     // Cryptobot Margin
-    async actionGetCryptobotMarginTradesCurrentLast(context: MainContext, payload) {
+    async actionGetCryptobotMarginTradesCurrentLast(context: MainContext, cryptobotId: string) {
         try {
-            const response = await api.getCryptobotMarginTradesCurrentLast(context.state.token, payload);
+            const response = await api.getCryptobotMarginTradesCurrentLast(context.state.token, cryptobotId);
+            console.log(response);
             if (response) {
-                commitSetCryptobotMarginTradesCurrentLast(context, payload);
+                commitSetCryptobotMarginTradesCurrentLast(context, response.data);
             }
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
     },
-    async actionGetCryptobotMarginTradesCurrentRun(context: MainContext, payload) {
+    async actionGetCryptobotMarginTradesCurrentRun(context: MainContext, cryptobotId: string) {
         try {
-            const response = await api.getCryptobotMarginTradesCurrentRun(context.state.token, payload);
+            const response = await api.getCryptobotMarginTradesCurrentRun(context.state.token, cryptobotId);
             if (response) {
-                commitSetCryptobotMarginTradesCurrentRun(context, payload);
+                commitSetCryptobotMarginTradesCurrentRun(context, response.data);
             }
         } catch (error) {
             await dispatchCheckApiError(context, error);
