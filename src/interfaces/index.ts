@@ -163,8 +163,8 @@ export interface IMarginValue {
 }
 
 export interface ICryptobotMarginTradesCurrentLast {
-    base_currency: IMarginValue;
-    quote_currency: IMarginValue;
+    base_currency: any;
+    quote_currency: any;
     percent: number;
 }
 
