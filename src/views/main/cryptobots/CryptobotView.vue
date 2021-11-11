@@ -101,7 +101,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Store } from 'vuex';
-import { ICryptobot, ICryptobotMarginTradesCurrentLast, ICryptobotMarginTradesCurrentRun } from '@/interfaces';
+import { ICryptobot, ICryptobotMarginTradesCurrentLast } from '@/interfaces';
 import {
     readUserProfile,
     readCryptobot, readCryptobotStatus, readCryptobotVersion, readCryptobotLogs,
@@ -117,8 +117,7 @@ import { Dictionary } from 'vue-router/types/router';
 @Component
 export default class CryptobotCreateOrEdit extends Vue {
   public title: string = 'Generate a bot';
-  public valid = true;
-  html: string = '';
+  public html: string = '';
 
   public cryptobotId: string | null = null;
   public userId: string = '';
@@ -190,9 +189,9 @@ export default class CryptobotCreateOrEdit extends Vue {
     }
   }
 
-  public getCryptobotMarginTradesCurrentRunText(margin: ICryptobotMarginTradesCurrentRun) {
-    if (margin.value !== null) {
-      return `${margin.value} ${margin.unit}`;
+  public getCryptobotMarginTradesCurrentRunText(margin: ICryptobotMarginTradesCurrentLast) {
+    if (margin.percent !== null) {
+      return `${margin.quote_currency.value} ${margin.quote_currency.unit}`;
     } else {
       return 'Unknown value.';
     }

@@ -167,8 +167,3 @@ export interface ICryptobotMarginTradesCurrentLast {
     quote_currency: any;
     percent: number;
 }
-
-export interface ICryptobotMarginTradesCurrentRun {
-    value: number;
-    unit: string;
-}

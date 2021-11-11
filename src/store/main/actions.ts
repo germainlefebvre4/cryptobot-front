@@ -274,7 +274,6 @@ export const actions = {
     async actionGetCryptobotMarginTradesCurrentLast(context: MainContext, cryptobotId: string) {
         try {
             const response = await api.getCryptobotMarginTradesCurrentLast(context.state.token, cryptobotId);
-            console.log(response);
             if (response) {
                 commitSetCryptobotMarginTradesCurrentLast(context, response.data);
             }
