@@ -7,7 +7,6 @@ import {
     IBinanceAccount,
     ITelegram,
     ICryptobotMarginTradesCurrentLast,
-    ICryptobotMarginTradesCurrentRun,
 } from '@/interfaces';
 
 
@@ -69,12 +68,6 @@ const defaultCryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast
   percent: 0,
 };
 
-const defaultCryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentRun = {
-  value: 0,
-  unit: '',
-};
-
-
 const defaultState: MainState = {
   isLoggedIn: null,
   token: '',
@@ -93,7 +86,7 @@ const defaultState: MainState = {
   cryptobotLogs: '',
   cryptobotVersion: '',
   cryptobotMarginTradesCurrentLast: defaultCryptobotMarginTradesCurrentLast,
-  cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentRun,
+  cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentLast,
 };
 
 export const mainModule = {

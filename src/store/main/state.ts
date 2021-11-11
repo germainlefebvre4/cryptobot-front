@@ -4,7 +4,6 @@ import {
     IBinanceAccount,
     ITelegram,
     ICryptobotMarginTradesCurrentLast,
-    ICryptobotMarginTradesCurrentRun,
 } from '@/interfaces';
 
 export interface AppNotification {
@@ -31,5 +30,5 @@ export interface MainState {
     cryptobotLogs: string;
     cryptobotVersion: string;
     cryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast;
-    cryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentRun;
+    cryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentLast;
 }

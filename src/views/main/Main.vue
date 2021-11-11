@@ -248,7 +248,6 @@ export default class Main extends Vue {
   }
 
   public navigationBack() {
-    console.log(window.history.length);
     if (window.history.length > 2) {
       this.$router.go(-1);
     } else {

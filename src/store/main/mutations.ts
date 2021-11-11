@@ -4,7 +4,6 @@ import {
     IBinanceAccount,
     ITelegram,
     ICryptobotMarginTradesCurrentLast,
-    ICryptobotMarginTradesCurrentRun,
 } from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
@@ -56,10 +55,8 @@ export const mutations = {
     // Cryptobot Margin
     setCryptobotMarginTradesCurrentLast(state: MainState, payload: ICryptobotMarginTradesCurrentLast) {
         state.cryptobotMarginTradesCurrentLast = payload;
-        console.log(payload)
-        console.log(state.cryptobotMarginTradesCurrentLast);
     },
-    setCryptobotMarginTradesCurrentRun(state: MainState, payload: ICryptobotMarginTradesCurrentRun) {
+    setCryptobotMarginTradesCurrentRun(state: MainState, payload: ICryptobotMarginTradesCurrentLast) {
         state.cryptobotMarginTradesCurrentRun = payload;
     },
     // Binance Accounts
