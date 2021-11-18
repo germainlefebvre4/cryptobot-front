@@ -23,6 +23,9 @@ import {
     commitSetCryptobotVersion,
     commitSetCryptobotMarginTradesCurrentLast,
     commitSetCryptobotMarginTradesCurrentRun,
+    commitSetMarginCurrencies,
+    commitSetMarginCurrency,
+    commitSetMarginBoardTradesLast
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -201,7 +204,7 @@ export const actions = {
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Cryptobot successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Cryptobot successfully added', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
@@ -322,7 +325,7 @@ export const actions = {
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Binance account successfully added', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
@@ -387,7 +390,7 @@ export const actions = {
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Telegram channel successfully added', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
@@ -402,7 +405,7 @@ export const actions = {
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Binance account successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Telegram channel successfully updated', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
@@ -417,11 +420,77 @@ export const actions = {
             ]))[0];
             // commitRemoveTelegram(context, response.data);
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Binance account successfully deleted', color: 'success' });
+            commitAddNotification(context, { content: 'Telegram channel successfully deleted', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error);
         }
     },
+    // Margin currencies
+    async actionGetMarginCurrencies(context: MainContext) {
+        try {
+            const response = await api.getMarginCurrencies(context.state.token);
+            if (response) {
+                commitSetMarginCurrencies(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionCreateMarginCurrency(context: MainContext, payload) {
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.createMarginCurrency(context.state.token, payload),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Currency successfully added', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    // async actionUpdateMarginCurrency(context: MainContext, payload) {
+    //     const cryptobotId = payload.id;
+    //     try {
+    //         const loadingNotification = { content: 'saving', showProgress: true };
+    //         commitAddNotification(context, loadingNotification);
+    //         const response = (await Promise.all([
+    //             api.updateMarginCurrency(context.state.token, payload, cryptobotId),
+    //             await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+    //         ]))[0];
+    //         commitRemoveNotification(context, loadingNotification);
+    //         commitAddNotification(context, { content: 'Currency successfully updated', color: 'success' });
+    //     } catch (error) {
+    //         await dispatchCheckApiError(context, error);
+    //     }
+    // },
+    async actionRemoveMarginCurrency(context: MainContext, cryptobotId: string) {
+        try {
+            const loadingNotification = { content: 'deleting', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.removeMarginCurrency(context.state.token, cryptobotId),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            // commitRemoveMarginCurrency(context, response.data);
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'Currency successfully deleted', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionsGetMarginBoardTradesLast(context: MainContext) {
+        try {
+            const response = await api.getMarginCurrenciesTradesLast(context.state.token);
+            if (response) {
+                commitSetMarginBoardTradesLast(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+
 
 };
 
@@ -465,3 +534,8 @@ export const dispatchGetTelegram = dispatch(actions.actionGetTelegram);
 export const dispatchCreateTelegram = dispatch(actions.actionCreateTelegram);
 export const dispatchUpdateTelegram = dispatch(actions.actionUpdateTelegram);
 export const dispatchRemoveTelegram = dispatch(actions.actionRemoveTelegram);
+
+export const dispatchGetMarginCurrencies = dispatch(actions.actionGetMarginCurrencies);
+export const dispatchCreateMarginCurrency = dispatch(actions.actionCreateMarginCurrency);
+export const dispatchRemoveMarginCurrency = dispatch(actions.actionRemoveMarginCurrency);
+export const dispatchGetMarginBoardTradesLast = dispatch(actions.actionsGetMarginBoardTradesLast);

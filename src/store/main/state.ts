@@ -4,6 +4,8 @@ import {
     IBinanceAccount,
     ITelegram,
     ICryptobotMarginTradesCurrentLast,
+    ICurrency,
+    IMargin,
 } from '@/interfaces';
 
 export interface AppNotification {
@@ -31,4 +33,7 @@ export interface MainState {
     cryptobotVersion: string;
     cryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast;
     cryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentLast;
+    marginCurrencies: ICurrency[];
+    marginCurrency: ICurrency;
+    marginBoardTradesLast: IMargin[];
 }

@@ -4,6 +4,8 @@ import {
     IBinanceAccount,
     ITelegram,
     ICryptobotMarginTradesCurrentLast,
+    ICurrency,
+    IMargin,
 } from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
@@ -73,6 +75,16 @@ export const mutations = {
     setTelegram(state: MainState, payload: ITelegram) {
         state.telegram = payload;
     },
+    // Margin currencies
+    setMarginCurrencies(state: MainState, payload: ICurrency[]) {
+        state.marginCurrencies = payload;
+    },
+    setMarginCurrency(state: MainState, payload: ICurrency) {
+        state.marginCurrency = payload;
+    },
+    setMarginBoardTradesLast(state: MainState, payload: IMargin[]) {
+        state.marginBoardTradesLast = payload;
+    },
 };
 
 const {commit} = getStoreAccessors<MainState | any, State>('');
@@ -101,4 +113,8 @@ export const commitSetBinanceAccount = commit(mutations.setBinanceAccount);
 
 export const commitSetTelegrams = commit(mutations.setTelegrams);
 export const commitSetTelegram = commit(mutations.setTelegram);
+
+export const commitSetMarginCurrencies = commit(mutations.setMarginCurrencies);
+export const commitSetMarginCurrency = commit(mutations.setMarginCurrency);
+export const commitSetMarginBoardTradesLast = commit(mutations.setMarginBoardTradesLast);
 

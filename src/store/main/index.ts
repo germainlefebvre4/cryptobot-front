@@ -7,6 +7,11 @@ import {
     IBinanceAccount,
     ITelegram,
     ICryptobotMarginTradesCurrentLast,
+    ICurrency,
+    IMargin,
+    IMarginValue,
+    IUserWallet,
+    IMarketPrice,
 } from '@/interfaces';
 
 
@@ -57,16 +62,41 @@ const defaultCryptobot: ICryptobot = {
   telegram_token: '',
 };
 
-const defaultMarginValue = {
+const defaultMarginValue2 = {
   value: 0,
   unit: '',
 };
 
 const defaultCryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast = {
-  base_currency: defaultMarginValue,
-  quote_currency: defaultMarginValue,
+  base_currency: defaultMarginValue2,
+  quote_currency: defaultMarginValue2,
   percent: 0,
 };
+
+const defaultMarginCurrency: ICurrency = {
+  base_currency: '',
+  quote_currency: '',
+};
+
+// const defautltMarketPrice: IMarketPrice = {
+//   price: 0,
+// }
+// const defautltUserWallet: IUserWallet = {
+//   percent: 0,
+//   value: 0,
+// }
+// const defautltMarginValue: IMarginValue = {
+//   percent: 0,
+//   value: 0,
+// }
+
+// const defaultMarginBoardTradesLast: IMargin = {
+//   base_currency: '',
+//   quote_currency: '',
+//   market: defautltMarketPrice,
+//   wallet: defautltUserWallet,
+//   margin: defautltMarginValue,
+// }
 
 const defaultState: MainState = {
   isLoggedIn: null,
@@ -87,6 +117,9 @@ const defaultState: MainState = {
   cryptobotVersion: '',
   cryptobotMarginTradesCurrentLast: defaultCryptobotMarginTradesCurrentLast,
   cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentLast,
+  marginCurrencies: [],
+  marginCurrency: defaultMarginCurrency,
+  marginBoardTradesLast: [],
 };
 
 export const mainModule = {
