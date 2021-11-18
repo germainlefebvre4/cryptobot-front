@@ -159,4 +159,7 @@ export const api = {
   async getMarginCurrenciesTradesLast(token: string) {
     return axios.get<IMargin[]>(`${apiUrl}/api/v1/margin/currencies/margin/trades/last`, authHeaders(token));
   },
+  async getMarginCurrenciesTradesRun(token: string) {
+    return axios.get<IMargin[]>(`${apiUrl}/api/v1/margin/currencies/margin/trades/run`, authHeaders(token));
+  },
 };

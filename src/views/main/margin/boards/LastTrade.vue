@@ -24,6 +24,16 @@
         </v-toolbar>
       </template>
 
+      <template v-slot:[`item.wallet.volume`]="{ item }">
+        {{ item.wallet.volume }} {{ item.base_currency }}
+      </template>
+      <template v-slot:[`item.margin.percent`]="{ item }">
+        {{ item.margin.percent }} %
+      </template>
+      <template v-slot:[`item.margin.value`]="{ item }">
+        {{ item.margin.value }} {{ item.quote_currency}}
+      </template>
+
     </v-data-table>
   </v-container>
 </template>
@@ -68,6 +78,12 @@ export default class MarginBoardTradesLast extends Vue {
       text: 'Wallet price',
       sortable: true,
       value: 'wallet.price',
+      align: 'left',
+    },
+    {
+      text: 'Wallet volume',
+      sortable: true,
+      value: 'wallet.volume',
       align: 'left',
     },
     {

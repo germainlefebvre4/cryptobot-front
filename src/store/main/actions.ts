@@ -25,7 +25,8 @@ import {
     commitSetCryptobotMarginTradesCurrentRun,
     commitSetMarginCurrencies,
     commitSetMarginCurrency,
-    commitSetMarginBoardTradesLast
+    commitSetMarginBoardTradesLast,
+    commitSetMarginBoardTradesRun,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -490,7 +491,16 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
-
+    async actionsGetMarginBoardTradesRun(context: MainContext) {
+        try {
+            const response = await api.getMarginCurrenciesTradesRun(context.state.token);
+            if (response) {
+                commitSetMarginBoardTradesRun(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
 
 };
 
@@ -539,3 +549,4 @@ export const dispatchGetMarginCurrencies = dispatch(actions.actionGetMarginCurre
 export const dispatchCreateMarginCurrency = dispatch(actions.actionCreateMarginCurrency);
 export const dispatchRemoveMarginCurrency = dispatch(actions.actionRemoveMarginCurrency);
 export const dispatchGetMarginBoardTradesLast = dispatch(actions.actionsGetMarginBoardTradesLast);
+export const dispatchGetMarginBoardTradesRun = dispatch(actions.actionsGetMarginBoardTradesRun);

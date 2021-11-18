@@ -36,4 +36,5 @@ export interface MainState {
     marginCurrencies: ICurrency[];
     marginCurrency: ICurrency;
     marginBoardTradesLast: IMargin[];
+    marginBoardTradesRun: IMargin[];
 }

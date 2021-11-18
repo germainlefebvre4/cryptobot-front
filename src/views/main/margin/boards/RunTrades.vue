@@ -24,6 +24,16 @@
         </v-toolbar>
       </template>
 
+      <template v-slot:[`item.wallet.volume`]="{ item }">
+        {{ item.wallet.volume }} {{ item.base_currency }}
+      </template>
+      <template v-slot:[`item.margin.percent`]="{ item }">
+        {{ item.margin.percent }} %
+      </template>
+      <template v-slot:[`item.margin.value`]="{ item }">
+        {{ item.margin.value }} {{ item.quote_currency}}
+      </template>
+
     </v-data-table>
   </v-container>
 </template>
@@ -31,12 +41,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Store } from 'vuex';
-import { readUserProfile, readMarginCurrencies } from '@/store/main/getters';
-import { dispatchGetMarginCurrencies, dispatchRemoveMarginCurrency } from '@/store/main/actions';
+import { readUserProfile, readMarginBoardTradesRun } from '@/store/main/getters';
+import { dispatchGetMarginBoardTradesRun } from '@/store/main/actions';
 import moment from 'moment';
 
 @Component
-export default class MarginCurrencies extends Vue {
+export default class MarginBoardTradesRun extends Vue {
 
   public pagination = {
     sortBy: ['id'],
@@ -71,6 +81,12 @@ export default class MarginCurrencies extends Vue {
       align: 'left',
     },
     {
+      text: 'Wallet volume',
+      sortable: true,
+      value: 'wallet.volume',
+      align: 'left',
+    },
+    {
       text: 'Margin percent',
       sortable: true,
       value: 'margin.percent',
@@ -86,11 +102,11 @@ export default class MarginCurrencies extends Vue {
 
 
   get currencies() {
-    return readMarginCurrencies(this.$store);
+    return readMarginBoardTradesRun(this.$store);
   }
 
   public async mounted() {
-    await dispatchGetMarginCurrencies(this.$store);
+    await dispatchGetMarginBoardTradesRun(this.$store);
   }
 
   public getDatetimePretty(datetime) {

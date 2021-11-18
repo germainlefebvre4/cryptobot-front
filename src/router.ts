@@ -167,6 +167,12 @@ export default new Router({
                     './views/main/margin/boards/LastTrade.vue'),
                 },
                 {
+                  path: 'board/trades/run',
+                  component: () => import(
+                    /* webpackChunkName: "main-margin-board-trades-run" */
+                    './views/main/margin/boards/RunTrades.vue'),
+                },
+                {
                   path: 'currency/view',
                   component: () => import(
                     /* webpackChunkName: "main-margin-currencies" */

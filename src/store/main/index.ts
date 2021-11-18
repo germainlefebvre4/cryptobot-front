@@ -120,6 +120,7 @@ const defaultState: MainState = {
   marginCurrencies: [],
   marginCurrency: defaultMarginCurrency,
   marginBoardTradesLast: [],
+  marginBoardTradesRun: [],
 };
 
 export const mainModule = {
