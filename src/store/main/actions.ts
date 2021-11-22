@@ -25,8 +25,7 @@ import {
     commitSetCryptobotMarginTradesCurrentRun,
     commitSetMarginCurrencies,
     commitSetMarginCurrency,
-    commitSetMarginBoardTradesLast,
-    commitSetMarginBoardTradesRun,
+    commitSetMarginBoardTrades,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -481,21 +480,11 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
-    async actionsGetMarginBoardTradesLast(context: MainContext) {
+    async actionsGetMarginBoardTrades(context: MainContext) {
         try {
-            const response = await api.getMarginCurrenciesTradesLast(context.state.token);
+            const response = await api.getMarginCurrenciesTrades(context.state.token);
             if (response) {
-                commitSetMarginBoardTradesLast(context, response.data);
-            }
-        } catch (error) {
-            await dispatchCheckApiError(context, error);
-        }
-    },
-    async actionsGetMarginBoardTradesRun(context: MainContext) {
-        try {
-            const response = await api.getMarginCurrenciesTradesRun(context.state.token);
-            if (response) {
-                commitSetMarginBoardTradesRun(context, response.data);
+                commitSetMarginBoardTrades(context, response.data);
             }
         } catch (error) {
             await dispatchCheckApiError(context, error);
@@ -548,5 +537,4 @@ export const dispatchRemoveTelegram = dispatch(actions.actionRemoveTelegram);
 export const dispatchGetMarginCurrencies = dispatch(actions.actionGetMarginCurrencies);
 export const dispatchCreateMarginCurrency = dispatch(actions.actionCreateMarginCurrency);
 export const dispatchRemoveMarginCurrency = dispatch(actions.actionRemoveMarginCurrency);
-export const dispatchGetMarginBoardTradesLast = dispatch(actions.actionsGetMarginBoardTradesLast);
-export const dispatchGetMarginBoardTradesRun = dispatch(actions.actionsGetMarginBoardTradesRun);
+export const dispatchGetMarginBoardTrades = dispatch(actions.actionsGetMarginBoardTrades);

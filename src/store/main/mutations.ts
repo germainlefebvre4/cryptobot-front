@@ -82,11 +82,8 @@ export const mutations = {
     setMarginCurrency(state: MainState, payload: ICurrency) {
         state.marginCurrency = payload;
     },
-    setMarginBoardTradesLast(state: MainState, payload: IMargin[]) {
-        state.marginBoardTradesLast = payload;
-    },
-    setMarginBoardTradesRun(state: MainState, payload: IMargin[]) {
-        state.marginBoardTradesRun = payload;
+    setMarginBoardTrades(state: MainState, payload: IMargin[]) {
+        state.marginBoardTrades = payload;
     },
 };
 
@@ -119,6 +116,5 @@ export const commitSetTelegram = commit(mutations.setTelegram);
 
 export const commitSetMarginCurrencies = commit(mutations.setMarginCurrencies);
 export const commitSetMarginCurrency = commit(mutations.setMarginCurrency);
-export const commitSetMarginBoardTradesLast = commit(mutations.setMarginBoardTradesLast);
-export const commitSetMarginBoardTradesRun = commit(mutations.setMarginBoardTradesRun);
+export const commitSetMarginBoardTrades = commit(mutations.setMarginBoardTrades);
 

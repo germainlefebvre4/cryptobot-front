@@ -28,8 +28,7 @@ export const getters = {
     cryptobotMarginTradesCurrentRun: (state: MainState) => state.cryptobotMarginTradesCurrentRun,
     marginCurrencies: (state: MainState) => state.marginCurrencies,
     marginCurrency: (state: MainState) => state.marginCurrency,
-    marginBoardTradesLast: (state: MainState) => state.marginBoardTradesLast,
-    marginBoardTradesRun: (state: MainState) => state.marginBoardTradesRun,
+    marginBoardTrades: (state: MainState) => state.marginBoardTrades,
 };
 
 const {read} = getStoreAccessors<MainState, State>('');
@@ -55,5 +54,4 @@ export const readTelegrams = read(getters.telegrams);
 export const readTelegram = read(getters.telegram);
 export const readMarginCurrencies = read(getters.marginCurrencies);
 export const readMarginCurrency = read(getters.marginCurrency);
-export const readMarginBoardTradesLast = read(getters.marginBoardTradesLast);
-export const readMarginBoardTradesRun = read(getters.marginBoardTradesRun);
+export const readMarginBoardTrades = read(getters.marginBoardTrades);

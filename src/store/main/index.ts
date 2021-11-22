@@ -78,26 +78,6 @@ const defaultMarginCurrency: ICurrency = {
   quote_currency: '',
 };
 
-// const defautltMarketPrice: IMarketPrice = {
-//   price: 0,
-// }
-// const defautltUserWallet: IUserWallet = {
-//   percent: 0,
-//   value: 0,
-// }
-// const defautltMarginValue: IMarginValue = {
-//   percent: 0,
-//   value: 0,
-// }
-
-// const defaultMarginBoardTradesLast: IMargin = {
-//   base_currency: '',
-//   quote_currency: '',
-//   market: defautltMarketPrice,
-//   wallet: defautltUserWallet,
-//   margin: defautltMarginValue,
-// }
-
 const defaultState: MainState = {
   isLoggedIn: null,
   token: '',
@@ -119,8 +99,7 @@ const defaultState: MainState = {
   cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentLast,
   marginCurrencies: [],
   marginCurrency: defaultMarginCurrency,
-  marginBoardTradesLast: [],
-  marginBoardTradesRun: [],
+  marginBoardTrades: [],
 };
 
 export const mainModule = {

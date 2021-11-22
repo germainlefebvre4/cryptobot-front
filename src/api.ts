@@ -156,10 +156,7 @@ export const api = {
   async removeMarginCurrency(token: string, marginCurrencyId: string) {
     return axios.delete(`${apiUrl}/api/v1/margin/currencies/${marginCurrencyId}`, authHeaders(token));
   },
-  async getMarginCurrenciesTradesLast(token: string) {
-    return axios.get<IMargin[]>(`${apiUrl}/api/v1/margin/currencies/margin/trades/last`, authHeaders(token));
-  },
-  async getMarginCurrenciesTradesRun(token: string) {
-    return axios.get<IMargin[]>(`${apiUrl}/api/v1/margin/currencies/margin/trades/run`, authHeaders(token));
+  async getMarginCurrenciesTrades(token: string) {
+    return axios.get<IMargin[]>(`${apiUrl}/api/v1/margin/currencies/margin/trades`, authHeaders(token));
   },
 };

@@ -35,6 +35,5 @@ export interface MainState {
     cryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentLast;
     marginCurrencies: ICurrency[];
     marginCurrency: ICurrency;
-    marginBoardTradesLast: IMargin[];
-    marginBoardTradesRun: IMargin[];
+    marginBoardTrades: IMargin[];
 }

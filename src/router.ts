@@ -158,19 +158,13 @@ export default new Router({
             {
               path: 'margin',
               component: RouterComponent,
-              redirect: 'margin/board/trades/last',
+              redirect: 'margin/trades',
               children: [
                 {
-                  path: 'board/trades/last',
+                  path: 'trades',
                   component: () => import(
-                    /* webpackChunkName: "main-margin-board-trades-last" */
-                    './views/main/margin/boards/LastTrade.vue'),
-                },
-                {
-                  path: 'board/trades/run',
-                  component: () => import(
-                    /* webpackChunkName: "main-margin-board-trades-run" */
-                    './views/main/margin/boards/RunTrades.vue'),
+                    /* webpackChunkName: "main-margin-trades" */
+                    './views/main/margin/Trades.vue'),
                 },
                 {
                   path: 'currency/view',

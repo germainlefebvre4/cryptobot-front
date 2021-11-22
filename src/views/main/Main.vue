@@ -77,20 +77,12 @@
 
         <v-list subheader>
           <v-subheader>Margin</v-subheader>
-          <v-list-item to="/main/margin/board/trades/last">
+          <v-list-item to="/main/margin/trades">
             <v-list-item-action>
-              <v-icon>mdi-format-list-bulleted</v-icon>
+              <v-icon>mdi-view-dashboard-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Board last trade</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/main/margin/board/trades/run">
-            <v-list-item-action>
-              <v-icon>mdi-format-list-bulleted</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Board run trades</v-list-item-title>
+              <v-list-item-title>Board</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item to="/main/margin/currency/view">
@@ -99,14 +91,6 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Manage currencies</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/main/margin/currency/create">
-            <v-list-item-action>
-              <v-icon>mdi-pen</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Create a currency</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
