@@ -3,7 +3,8 @@ import {
     ICryptobot,
     IBinanceAccount,
     ITelegram,
-    ICryptobotMarginTradesCurrentLast,
+    ICurrency,
+    IMargin,
 } from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
@@ -52,13 +53,6 @@ export const mutations = {
     setCryptobotVersion(state: MainState, payload: string) {
         state.cryptobotVersion = payload;
     },
-    // Cryptobot Margin
-    setCryptobotMarginTradesCurrentLast(state: MainState, payload: ICryptobotMarginTradesCurrentLast) {
-        state.cryptobotMarginTradesCurrentLast = payload;
-    },
-    setCryptobotMarginTradesCurrentRun(state: MainState, payload: ICryptobotMarginTradesCurrentLast) {
-        state.cryptobotMarginTradesCurrentRun = payload;
-    },
     // Binance Accounts
     setBinanceAccounts(state: MainState, payload: IBinanceAccount[]) {
         state.binanceAccounts = payload;
@@ -72,6 +66,16 @@ export const mutations = {
     },
     setTelegram(state: MainState, payload: ITelegram) {
         state.telegram = payload;
+    },
+    // Margin currencies
+    setMarginCurrencies(state: MainState, payload: ICurrency[]) {
+        state.marginCurrencies = payload;
+    },
+    setMarginCurrency(state: MainState, payload: ICurrency) {
+        state.marginCurrency = payload;
+    },
+    setMarginBoardTrades(state: MainState, payload: IMargin[]) {
+        state.marginBoardTrades = payload;
     },
 };
 
@@ -93,12 +97,13 @@ export const commitSetCryptobotStatus = commit(mutations.setCryptobotStatus);
 export const commitSetCryptobotLogs = commit(mutations.setCryptobotLogs);
 export const commitSetCryptobotVersion = commit(mutations.setCryptobotVersion);
 
-export const commitSetCryptobotMarginTradesCurrentLast = commit(mutations.setCryptobotMarginTradesCurrentLast);
-export const commitSetCryptobotMarginTradesCurrentRun = commit(mutations.setCryptobotMarginTradesCurrentRun);
-
 export const commitSetBinanceAccounts = commit(mutations.setBinanceAccounts);
 export const commitSetBinanceAccount = commit(mutations.setBinanceAccount);
 
 export const commitSetTelegrams = commit(mutations.setTelegrams);
 export const commitSetTelegram = commit(mutations.setTelegram);
+
+export const commitSetMarginCurrencies = commit(mutations.setMarginCurrencies);
+export const commitSetMarginCurrency = commit(mutations.setMarginCurrency);
+export const commitSetMarginBoardTrades = commit(mutations.setMarginBoardTrades);
 

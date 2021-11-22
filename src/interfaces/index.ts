@@ -157,13 +157,40 @@ export interface ITelegram {
     token: string;
 }
 
-export interface IMarginValue {
-    value: number;
-    unit: string;
+export interface ICurrency {
+    base_currency: string;
+    quote_currency: string;
 }
 
-export interface ICryptobotMarginTradesCurrentLast {
-    base_currency: any;
-    quote_currency: any;
+export interface ICurrencyCreate {
+    base_currency: string;
+    quote_currency: string;
+}
+
+export interface ICurrencyDelete {
+    id: number;
+    user_id: number;
+    base_currency: string;
+    quote_currency: string;
+}
+
+
+export interface IMarketPrice {
+    price: number;
+}
+export interface IUserWallet {
     percent: number;
+    value: number;
+}
+export interface IMarginValue {
+    percent: number;
+    value: number;
+}
+
+export interface IMargin {
+    base_currency: string;
+    quote_currency: string;
+    market: IMarketPrice;
+    wallet: IUserWallet;
+    margin: IMarginValue;
 }

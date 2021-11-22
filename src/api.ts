@@ -8,7 +8,8 @@ import {
   ICryptobotCreate,
   IBinanceAccount,
   ITelegram,
-  ICryptobotMarginTradesCurrentLast,
+  ICurrency,
+  IMargin,
 } from './interfaces';
 
 function authHeaders(token: string) {
@@ -91,20 +92,6 @@ export const api = {
     return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/version`, authHeaders(token));
   },
 
-  // Cryptobot margin
-  async getCryptobotMarginTradesCurrentLast(token: string, cryptobotId: string) {
-    return axios.get<ICryptobotMarginTradesCurrentLast>(
-        `${apiUrl}/api/v1/cryptobots/${cryptobotId}/margin/trades/current/last`,
-        authHeaders(token),
-    );
-  },
-  async getCryptobotMarginTradesCurrentRun(token: string, cryptobotId: string) {
-    return axios.get<ICryptobotMarginTradesCurrentLast>(
-        `${apiUrl}/api/v1/cryptobots/${cryptobotId}/margin/trades/current/run`,
-        authHeaders(token),
-    );
-  },
-
   // Binance Accounts
   async getBinanceAccounts(token: string) {
     return axios.get<IBinanceAccount[]>(`${apiUrl}/api/v1/binance/accounts/`, authHeaders(token));
@@ -141,5 +128,20 @@ export const api = {
   },
   async removeTelegram(token: string, telegramId: string) {
     return axios.delete(`${apiUrl}/api/v1/telegram/${telegramId}`, authHeaders(token));
+  },
+
+  // Margin Currencies
+  async getMarginCurrencies(token: string) {
+    return axios.get<ICurrency[]>(`${apiUrl}/api/v1/margin/currencies/`, authHeaders(token));
+  },
+  async createMarginCurrency(token: string, data: ITelegram) {
+    return axios.post(`${apiUrl}/api/v1/margin/currencies/`,
+      data, authHeaders(token));
+  },
+  async removeMarginCurrency(token: string, marginCurrencyId: string) {
+    return axios.delete(`${apiUrl}/api/v1/margin/currencies/${marginCurrencyId}`, authHeaders(token));
+  },
+  async getMarginCurrenciesTrades(token: string) {
+    return axios.get<IMargin[]>(`${apiUrl}/api/v1/margin/currencies/margin/trades`, authHeaders(token));
   },
 };

@@ -6,7 +6,11 @@ import {
     ICryptobot,
     IBinanceAccount,
     ITelegram,
-    ICryptobotMarginTradesCurrentLast,
+    ICurrency,
+    IMargin,
+    IMarginValue,
+    IUserWallet,
+    IMarketPrice,
 } from '@/interfaces';
 
 
@@ -57,15 +61,14 @@ const defaultCryptobot: ICryptobot = {
   telegram_token: '',
 };
 
-const defaultMarginValue = {
+const defaultMarginValue2 = {
   value: 0,
   unit: '',
 };
 
-const defaultCryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast = {
-  base_currency: defaultMarginValue,
-  quote_currency: defaultMarginValue,
-  percent: 0,
+const defaultMarginCurrency: ICurrency = {
+  base_currency: '',
+  quote_currency: '',
 };
 
 const defaultState: MainState = {
@@ -85,8 +88,9 @@ const defaultState: MainState = {
   cryptobotStatus: '',
   cryptobotLogs: '',
   cryptobotVersion: '',
-  cryptobotMarginTradesCurrentLast: defaultCryptobotMarginTradesCurrentLast,
-  cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentLast,
+  marginCurrencies: [],
+  marginCurrency: defaultMarginCurrency,
+  marginBoardTrades: [],
 };
 
 export const mainModule = {

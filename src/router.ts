@@ -156,6 +156,31 @@ export default new Router({
               ],
             },
             {
+              path: 'margin',
+              component: RouterComponent,
+              redirect: 'margin/trades',
+              children: [
+                {
+                  path: 'trades',
+                  component: () => import(
+                    /* webpackChunkName: "main-margin-trades" */
+                    './views/main/margin/Trades.vue'),
+                },
+                {
+                  path: 'currency/view',
+                  component: () => import(
+                    /* webpackChunkName: "main-margin-currencies" */
+                    './views/main/margin/Currencies.vue'),
+                },
+                {
+                  path: 'currency/create',
+                  component: () => import(
+                    /* webpackChunkName: "main-margin-currency" */
+                    './views/main/margin/CurrencyCreateOrEdit.vue'),
+                },
+              ],
+            },
+            {
               path: 'admin',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'),
               redirect: 'admin/users/all',

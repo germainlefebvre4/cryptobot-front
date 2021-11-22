@@ -40,29 +40,6 @@
             </v-card-text>
           </v-card>
 
-
-          <v-card style="margin-top: 15px;" outlined color="transparent">
-            <v-card-title>
-              <div class="headline">
-                <v-icon>mdi-chart-line</v-icon>
-                <span class="headline">
-                  Margin
-                </span>
-              </div>
-            </v-card-title>
-            <v-card-text>
-              <v-container >
-                <v-row>
-                    Last trade: {{ getCryptobotMarginTradesCurrentLastText(this.cryptobotMarginTradesCurrentLast) }}
-                </v-row>
-                <v-row>
-                    Current run: {{ getCryptobotMarginTradesCurrentRunText(this.cryptobotMarginTradesCurrentRun) }}
-                </v-row>
-              </v-container>
-            </v-card-text>
-          </v-card>
-
-
           <v-card style="margin-top: 15px;" outlined color="transparent">
             <v-card-title>
               <div class="headline">
@@ -101,16 +78,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Store } from 'vuex';
-import { ICryptobot, ICryptobotMarginTradesCurrentLast } from '@/interfaces';
+import { ICryptobot } from '@/interfaces';
 import {
     readUserProfile,
     readCryptobot, readCryptobotStatus, readCryptobotVersion, readCryptobotLogs,
-    readCryptobotMarginTradesCurrentLast, readCryptobotMarginTradesCurrentRun,
 } from '@/store/main/getters';
 import {
     dispatchGetCryptobot,
     dispatchGetCryptobotLogs, dispatchGetCryptobotStatus, dispatchGetCryptobotVersion,
-    dispatchGetCryptobotMarginTradesCurrentLast, dispatchGetCryptobotMarginTradesCurrentRun,
 } from '@/store/main/actions';
 import { Dictionary } from 'vue-router/types/router';
 
@@ -157,8 +132,6 @@ export default class CryptobotCreateOrEdit extends Vue {
     dispatchGetCryptobotStatus(this.$store, this.cryptobotId);
     dispatchGetCryptobotVersion(this.$store, this.cryptobotId);
     dispatchGetCryptobotLogs(this.$store, this.cryptobotId);
-    dispatchGetCryptobotMarginTradesCurrentLast(this.$store, this.cryptobotId);
-    dispatchGetCryptobotMarginTradesCurrentRun(this.$store, this.cryptobotId);
   }
 
   public openLink(url: string) {
@@ -181,22 +154,6 @@ export default class CryptobotCreateOrEdit extends Vue {
     }
   }
 
-  public getCryptobotMarginTradesCurrentLastText(margin: ICryptobotMarginTradesCurrentLast) {
-    if (margin.percent !== null) {
-      return margin.percent + '%';
-    } else {
-      return 'Unknown value.';
-    }
-  }
-
-  public getCryptobotMarginTradesCurrentRunText(margin: ICryptobotMarginTradesCurrentLast) {
-    if (margin.percent !== null) {
-      return `${margin.quote_currency.value} ${margin.quote_currency.unit}`;
-    } else {
-      return 'Unknown value.';
-    }
-  }
-
   get userProfile() {
     return readUserProfile(this.$store);
   }
@@ -215,14 +172,6 @@ export default class CryptobotCreateOrEdit extends Vue {
 
   get cryptobotVersion() {
     return readCryptobotVersion(this.$store);
-  }
-
-  get cryptobotMarginTradesCurrentLast() {
-    return readCryptobotMarginTradesCurrentLast(this.$store);
-  }
-
-  get cryptobotMarginTradesCurrentRun() {
-    return readCryptobotMarginTradesCurrentRun(this.$store);
   }
 
 }
