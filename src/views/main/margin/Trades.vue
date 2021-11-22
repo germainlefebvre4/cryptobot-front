@@ -50,11 +50,11 @@
       </template>
       <template v-slot:[`header.wallet.volume`]="{}">
         <div>Wallet</div>
-        <div>Volume (price)</div>
+        <div>Volume (Price)</div>
       </template>
       <template v-slot:[`header.last_trade.volume`]="{}">
         <div>Last trade</div>
-        <div>Volume (price)</div>
+        <div>Volume (Price)</div>
       </template>
       <template v-slot:[`header.last_trade.value`]="{}">
         <div>Last trade</div>
@@ -70,7 +70,7 @@
       </template>
       <template v-slot:[`header.last_run.volume`]="{}">
         <div>Last run</div>
-        <div>Volume (price)</div>
+        <div>Volume (Price)</div>
       </template>
       <template v-slot:[`header.last_run.value`]="{}">
         <div>Last run</div>

@@ -8,7 +8,6 @@ import {
   ICryptobotCreate,
   IBinanceAccount,
   ITelegram,
-  ICryptobotMarginTradesCurrentLast,
   ICurrency,
   IMargin,
 } from './interfaces';
@@ -91,20 +90,6 @@ export const api = {
   },
   async getCryptobotVersion(token: string, cryptobotId: string) {
     return axios.get<string>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}/version`, authHeaders(token));
-  },
-
-  // Cryptobot margin
-  async getCryptobotMarginTradesCurrentLast(token: string, cryptobotId: string) {
-    return axios.get<ICryptobotMarginTradesCurrentLast>(
-        `${apiUrl}/api/v1/cryptobots/${cryptobotId}/margin/trades/current/last`,
-        authHeaders(token),
-    );
-  },
-  async getCryptobotMarginTradesCurrentRun(token: string, cryptobotId: string) {
-    return axios.get<ICryptobotMarginTradesCurrentLast>(
-        `${apiUrl}/api/v1/cryptobots/${cryptobotId}/margin/trades/current/run`,
-        authHeaders(token),
-    );
   },
 
   // Binance Accounts

@@ -6,7 +6,6 @@ import {
     ICryptobot,
     IBinanceAccount,
     ITelegram,
-    ICryptobotMarginTradesCurrentLast,
     ICurrency,
     IMargin,
     IMarginValue,
@@ -67,12 +66,6 @@ const defaultMarginValue2 = {
   unit: '',
 };
 
-const defaultCryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast = {
-  base_currency: defaultMarginValue2,
-  quote_currency: defaultMarginValue2,
-  percent: 0,
-};
-
 const defaultMarginCurrency: ICurrency = {
   base_currency: '',
   quote_currency: '',
@@ -95,8 +88,6 @@ const defaultState: MainState = {
   cryptobotStatus: '',
   cryptobotLogs: '',
   cryptobotVersion: '',
-  cryptobotMarginTradesCurrentLast: defaultCryptobotMarginTradesCurrentLast,
-  cryptobotMarginTradesCurrentRun: defaultCryptobotMarginTradesCurrentLast,
   marginCurrencies: [],
   marginCurrency: defaultMarginCurrency,
   marginBoardTrades: [],

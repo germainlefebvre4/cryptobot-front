@@ -3,7 +3,6 @@ import {
     ICryptobot,
     IBinanceAccount,
     ITelegram,
-    ICryptobotMarginTradesCurrentLast,
     ICurrency,
     IMargin,
 } from '@/interfaces';
@@ -31,8 +30,6 @@ export interface MainState {
     cryptobotStatus: string;
     cryptobotLogs: string;
     cryptobotVersion: string;
-    cryptobotMarginTradesCurrentLast: ICryptobotMarginTradesCurrentLast;
-    cryptobotMarginTradesCurrentRun: ICryptobotMarginTradesCurrentLast;
     marginCurrencies: ICurrency[];
     marginCurrency: ICurrency;
     marginBoardTrades: IMargin[];

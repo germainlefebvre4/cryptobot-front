@@ -21,8 +21,6 @@ import {
     commitSetCryptobotStatus,
     commitSetCryptobotLogs,
     commitSetCryptobotVersion,
-    commitSetCryptobotMarginTradesCurrentLast,
-    commitSetCryptobotMarginTradesCurrentRun,
     commitSetMarginCurrencies,
     commitSetMarginCurrency,
     commitSetMarginBoardTrades,
@@ -273,28 +271,6 @@ export const actions = {
         }
     },
 
-    // Cryptobot Margin
-    async actionGetCryptobotMarginTradesCurrentLast(context: MainContext, cryptobotId: string) {
-        try {
-            const response = await api.getCryptobotMarginTradesCurrentLast(context.state.token, cryptobotId);
-            if (response) {
-                commitSetCryptobotMarginTradesCurrentLast(context, response.data);
-            }
-        } catch (error) {
-            await dispatchCheckApiError(context, error);
-        }
-    },
-    async actionGetCryptobotMarginTradesCurrentRun(context: MainContext, cryptobotId: string) {
-        try {
-            const response = await api.getCryptobotMarginTradesCurrentRun(context.state.token, cryptobotId);
-            if (response) {
-                commitSetCryptobotMarginTradesCurrentRun(context, response.data);
-            }
-        } catch (error) {
-            await dispatchCheckApiError(context, error);
-        }
-    },
-
     // Binance Accounts
     async actionGetBinanceAccounts(context: MainContext) {
         try {
@@ -518,9 +494,6 @@ export const dispatchRemoveCryptobot = dispatch(actions.actionRemoveCryptobot);
 export const dispatchGetCryptobotStatus = dispatch(actions.actionGetCryptobotStatus);
 export const dispatchGetCryptobotLogs = dispatch(actions.actionGetCryptobotLogs);
 export const dispatchGetCryptobotVersion = dispatch(actions.actionGetCryptobotVersion);
-
-export const dispatchGetCryptobotMarginTradesCurrentLast = dispatch(actions.actionGetCryptobotMarginTradesCurrentLast);
-export const dispatchGetCryptobotMarginTradesCurrentRun = dispatch(actions.actionGetCryptobotMarginTradesCurrentRun);
 
 export const dispatchGetBinanceAccounts = dispatch(actions.actionGetBinanceAccounts);
 export const dispatchGetBinanceAccount = dispatch(actions.actionGetBinanceAccount);

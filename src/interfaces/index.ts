@@ -157,13 +157,6 @@ export interface ITelegram {
     token: string;
 }
 
-export interface ICryptobotMarginTradesCurrentLast {
-    base_currency: any;
-    quote_currency: any;
-    percent: number;
-}
-
-
 export interface ICurrency {
     base_currency: string;
     quote_currency: string;
