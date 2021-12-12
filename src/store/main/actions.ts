@@ -457,13 +457,17 @@ export const actions = {
         }
     },
     async actionsGetMarginBoardTrades(context: MainContext) {
+        const loadingNotification = { content: 'Loading...', showProgress: true };
         try {
+            commitAddNotification(context, loadingNotification);
             const response = await api.getMarginCurrenciesTrades(context.state.token);
             if (response) {
                 commitSetMarginBoardTrades(context, response.data);
             }
+            commitRemoveNotification(context, loadingNotification);
         } catch (error) {
-            await dispatchCheckApiError(context, error);
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { color: 'error', content: 'An error occured...' });
         }
     },
 

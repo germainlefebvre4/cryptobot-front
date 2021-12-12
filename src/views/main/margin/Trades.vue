@@ -7,7 +7,7 @@
       :sort-desc="pagination.sortDesc"
       :footer-props.sync="paginationFooter"
       class="elevation-1"
-      loading
+      :loading="loading"
       loading-text="Loading... Please wait"
       :search="search"
     >
@@ -240,6 +240,7 @@ export default class MarginBoardTrades extends Vue {
     },
   ];
   public search: string = '';
+  public loading: boolean = true;
 
 
   get currencies() {
@@ -248,6 +249,7 @@ export default class MarginBoardTrades extends Vue {
 
   public async mounted() {
     await dispatchGetMarginBoardTrades(this.$store);
+    this.loading = false;
   }
 
   public getDatetimePretty(datetime) {
