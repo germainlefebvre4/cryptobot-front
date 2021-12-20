@@ -59,6 +59,7 @@ const defaultCryptobot: ICryptobot = {
   logger_consoleloglevel: '',
   telegram_client_id: '',
   telegram_token: '',
+  last_action: '',
 };
 
 const defaultMarginValue2 = {

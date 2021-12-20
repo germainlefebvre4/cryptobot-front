@@ -120,6 +120,7 @@ export interface ICryptobot {
     logger_consoleloglevel: string;
     telegram_client_id: string;
     telegram_token: string;
+    last_action: string;
 }
 
 export interface IBinanceAccountCreate {
