@@ -98,9 +98,9 @@ export default class Cryptobots extends Vue {
       align: 'left',
     },
     {
-      text: 'Creation date',
+      text: 'Last action',
       sortable: true,
-      value: 'created_on',
+      value: 'last_action',
       align: 'left',
     },
     {
