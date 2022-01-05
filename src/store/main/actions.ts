@@ -177,6 +177,16 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
+    async actionGetCryptobotsWithLastAction(context: MainContext) {
+        try {
+            const response = await api.getCryptobotsWithLastAction(context.state.token);
+            if (response) {
+                commitSetCryptobots(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
     async actionGetCryptobot(context: MainContext, cryptobotId: string) {
         try {
             const response = await api.getCryptobot(context.state.token, cryptobotId);
@@ -490,6 +500,7 @@ export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
 
 export const dispatchGetCryptobots = dispatch(actions.actionGetCryptobots);
+export const dispatchGetCryptobotsWithLastAction = dispatch(actions.actionGetCryptobotsWithLastAction);
 export const dispatchGetCryptobot = dispatch(actions.actionGetCryptobot);
 export const dispatchCreateCryptobot = dispatch(actions.actionCreateCryptobot);
 export const dispatchUpdateCryptobot = dispatch(actions.actionUpdateCryptobot);

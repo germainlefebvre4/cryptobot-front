@@ -65,7 +65,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Store } from 'vuex';
 import { readUserProfile, readCryptobots } from '@/store/main/getters';
-import { dispatchGetCryptobots, dispatchRemoveCryptobot } from '@/store/main/actions';
+import { dispatchGetCryptobots, dispatchGetCryptobotsWithLastAction, dispatchRemoveCryptobot } from '@/store/main/actions';
 import moment from 'moment';
 
 @Component
@@ -121,6 +121,7 @@ export default class Cryptobots extends Vue {
 
   public async mounted() {
     await dispatchGetCryptobots(this.$store);
+    await dispatchGetCryptobotsWithLastAction(this.$store);
   }
 
   public showDeleteDialog(cryptbotId) {

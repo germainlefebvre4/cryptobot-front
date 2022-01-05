@@ -66,6 +66,9 @@ export const api = {
   async getCryptobots(token: string) {
     return axios.get<ICryptobot[]>(`${apiUrl}/api/v1/cryptobots/`, authHeaders(token));
   },
+  async getCryptobotsWithLastAction(token: string) {
+    return axios.get<ICryptobot[]>(`${apiUrl}/api/v1/cryptobots/_last_action`, authHeaders(token));
+  },
   async getCryptobot(token: string, cryptobotId: string) {
     return axios.get<ICryptobot>(`${apiUrl}/api/v1/cryptobots/${cryptobotId}`, authHeaders(token));
   },
