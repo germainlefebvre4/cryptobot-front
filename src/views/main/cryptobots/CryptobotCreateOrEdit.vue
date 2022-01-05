@@ -276,7 +276,7 @@ export default class CryptobotCreateOrEdit extends Vue {
   public binanceAccountId: number = 0;
   public telegramId: number = 0;
   public binanceConfigBaseCurrency: string = 'BTC';
-  public binanceConfigQuoteCurrency: string = 'EUR';
+  public binanceConfigQuoteCurrency: string = 'BUSD';
   public binanceConfigGranularity: string = '15m';
   public binanceConfigLive: boolean = false;
   public binanceConfigVerbose: boolean = true;
