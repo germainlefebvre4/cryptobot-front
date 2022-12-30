@@ -49,7 +49,7 @@ jobs:
         run: |
           sed -i 's/\(^ *"version": \).*/\1"${{ steps.semantic.outputs.new_release_version }}",/g' package.json
       - name: Publish to Docker Repository
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         env:
           FRONTEND_ENV: production
         with:
